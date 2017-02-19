@@ -1,6 +1,6 @@
 box: debian
 build:
   steps:
-    - shuenhoy/hugo-build@0.1.4
+    - arjen/hugo-build:
       version: "0.17"
       theme: hugo-creative-portfolio-theme
