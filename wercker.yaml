@@ -1,0 +1,6 @@
+box: debian
+build:
+  steps:
+    - shuenhoy/hugo-build@0.1.4
+      version: "0.17"
+      theme: hugo-creative-portfolio-theme
