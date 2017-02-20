@@ -4,3 +4,11 @@ build:
     - arjen/hugo-build:
       version: "0.17"
       theme: hugo-creative-portfolio-theme
+
+deploy:
+  steps:
+    - s3sync:
+      key-id: $KEY
+      key-secret: $SECRET
+      bucket-url: $BUCKET
+      source-dir: $SOURCE
