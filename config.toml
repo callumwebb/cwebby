@@ -1,4 +1,4 @@
-baseurl = "cwebby.com.s3-website-ap-southeast-1.amazonaws.com"
+baseurl = "http://cwebby.com.s3-website-ap-southeast-1.amazonaws.com"
 title = "Creative portfolio"
 theme = "hugo-creative-portfolio-theme"
 languageCode = "en-us"
