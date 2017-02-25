@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^archetypes$
+^content$
+^layout$
+^man$
+^public$
+^static$
+^themes$
+^config.toml$
+^wercker.yml$

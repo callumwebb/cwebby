@@ -1,9 +1,12 @@
-box: debian
+box: rocker/tidyverse
 build:
   steps:
-    - arjen/hugo-build:
-      version: "0.17"
-      theme: hugo-creative-portfolio-theme
+   - jimhester/r-dependencies
+   - script:
+      name: blogdown-build
+      code: |
+        Rscript -e blogdown::build_site()
+      
 deploy:
   steps:
     - s3sync:
