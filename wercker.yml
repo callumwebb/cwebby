@@ -6,6 +6,7 @@ build:
    - script:
        name: blogdown-build
        code: |
+         Rscript -e 'blogdown::install_hugo(version = "0.17")'
          Rscript -e 'blogdown::build_site()'
       
 deploy:
