@@ -5,7 +5,7 @@ build:
    - script:
       name: blogdown-build
       code: |
-        Rscript -e blogdown::build_site()
+        Rscript -e 'blogdown::build_site()'
       
 deploy:
   steps:
