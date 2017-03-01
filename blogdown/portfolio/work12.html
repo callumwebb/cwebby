@@ -1,0 +1,55 @@
+---
+image: "img/portfolio/business-card.jpg"
+showonlyimage: true
+date: "2016-11-05T19:44:32+05:30"
+title: "time and memory"
+type: "portfolio"
+draft: false
+highlight: tango
+---
+
+<!-- BLOGDOWN-HEAD -->
+
+
+
+<!-- /BLOGDOWN-HEAD -->
+
+<!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<div id="checking-what-happens-to-wercker-with-demanding-code-chunks" class="section level2">
+<h2>Checking what happens to wercker with demanding code chunks…</h2>
+<pre class="r"><code>rowSums2 &lt;- function(df) {
+  out &lt;- df[[1L]]
+  if (ncol(df) == 1) return(out)
+
+  for (i in 2:ncol(df)) {
+    out &lt;- out + df[[i]]
+  }
+  out
+}
+
+df &lt;- as.data.frame(
+  replicate(1e3, sample(100, 1e5, replace = TRUE))
+)
+system.time(rowSums(df))</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.52    0.10    0.61</code></pre>
+<div id="heading-3" class="section level3">
+<h3>Heading 3</h3>
+<p>words asdf as</p>
+<div id="heading-4" class="section level4">
+<h4>Heading 4</h4>
+<p>asdasdf</p>
+<div id="heading-5" class="section level5">
+<h5>Heading 5</h5>
+<p>!</p>
+<div id="heading-6" class="section level6">
+<h6>Heading 6</h6>
+<p>woo woo</p>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -5,10 +5,10 @@ date: "2016-11-05T19:44:32+05:30"
 title: "time and memory"
 type: "portfolio"
 draft: false
+highlight: tango
 ---
 
 ## Checking what happens to wercker with demanding code chunks...
-
 ```{r}
 rowSums2 <- function(df) {
   out <- df[[1L]]
@@ -21,8 +21,21 @@ rowSums2 <- function(df) {
 }
 
 df <- as.data.frame(
-  replicate(1e3, sample(100, 1e6, replace = TRUE))
+  replicate(1e3, sample(100, 1e5, replace = TRUE))
 )
 system.time(rowSums(df))
 ```
 
+### Heading 3
+
+words asdf as
+
+#### Heading 4
+
+asdasdf
+
+##### Heading 5
+!
+
+###### Heading 6
+woo woo
