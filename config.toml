@@ -14,8 +14,8 @@ googleAnalytics = ""
   description = "Describe your website"
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
-    "I am a creative illustrator and graphic designer with more than 10 years of experience.",
-    "Originally from Toronto, currently based in London."
+    "Engineer and computer scientist with a passion for data and sharing knowledge.",
+    "Currently based in Perth, Australia."
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
@@ -45,11 +45,11 @@ googleAnalytics = ""
   url = "contact/"
 
   [params.social]
-  facebook      = "full page or profile url in facebook"
-  googleplus    = "full profile url in googleplus"
-  email         = "email@example.com"
-  twitter       = "full profile url in twitter"
+  facebook      = ""
+  #googleplus    = "full profile url in googleplus"
+  #email         = "email@example.com"
+  twitter       = "https://twitter.com/Webbatron"
   linkedin      = "https://linkedin.com/in/callumwebb"
   #stackoverflow = "full profile url in stackoverflow"
   #instagram     = "full profile url in instagram"
-  github        = "full profile url in github"
+  github        = "https://github.com/callumwebb"

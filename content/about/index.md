@@ -3,19 +3,25 @@ date = "2016-11-05T21:05:33+05:30"
 title = "About me"
 +++
 
-An sincerity so extremity he additions. Her yet **there truth merit**. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can admiration prosperous now devonshire diminution law.
+I'm a mechanical engineer and computer scientist by training, and have been fortunate to experience a range of work in both areas as well as their intersection. Some things I've been a part of include:
 
-Received overcame oh sensible so at an. Formed do change merely to county it. **Am separate contempt** domestic to to oh. On relation my so addition branched. Put hearing cottage she norland letters equally prepare too. Replied exposed savings he no viewing as up. Soon body add him hill. No father living really people estate if. Mistake do produce beloved demesne if am pursuit.
+- an augmented reality app for mine planning
+- predictive models for conveyor belt wear
+- a mountain bike [suspension tuning system](https://www.quarq.com/) 
+- [hipflask](http://hello.hipflaskapp.com/), a socially networked gig guide
+- maintenance of heavy haul railways
+- autonomous haul trucks
 
-![This is me][1]
+More recently I've developed a keen interest for data science and statistics. Outside of work I enjoy photography, working out, and occassionally playing trombone.
 
-The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn't listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
+![This is me](/img/me.jpg)
+
 
 #### Education
 
-* Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-* Aliquam tincidunt mauris eu risus.
+Growing up, I loved to tinker with computers, electronics, and mechanical systems. I couldn't decide which was most fun, so I settled on doing a double degree in Computer Science and Mechanical Engineering. 
 
-When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then
+I completed my studies at the University of Western Australia in 2013, majoring in computation and graduating with first class honours.
 
-[1]: /img/about.jpg
+I'm happy to report that my appreciation of Lego is still as strong as ever!
+
