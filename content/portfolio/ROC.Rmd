@@ -12,24 +12,26 @@ draft: false
   circle.raspberry {
     fill: #d20000;
     stroke: #500000;
+    stroke-width: 3px;
   }
   circle.blueberry {
     fill: #0059de;
     stroke: #002050;
+    stroke-width: 3px;
   }
   circle.pos {
     fill: none;
     stroke: #d20000;
     stroke-opacity: 0.75;
-    stroke-width: 1.5px;
-    stroke-dasharray: 2.25;
+    stroke-width: 5px;
+    stroke-dasharray: 10;
   }
   circle.neg {
     fill: none;
     stroke: #0059de;
     stroke-opacity: 0.75;
-    stroke-width: 1.5px;
-    stroke-dasharray: 2.25;
+    stroke-width: 5px;
+    stroke-dasharray: 10;
   }
 </style>
 
@@ -50,7 +52,7 @@ Suppose that we buy our berries in bulk and that they come mixed together. Becau
 
 After developing a classification algorithm that the machine will use to sort the mixed berries, we'd like to estimate how well it's going to perform. An ROC curve is one tool that can help us do this. Here's an example curve which we'll unpack below.
 
-<figure class="roc-example" style = "max-width:300px;width:100%"></figure> 
+<figure class="roc-example" style = "max-width:330px;width:100%"></figure> 
 
 
 There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't do. 
@@ -68,7 +70,7 @@ To understand how the ROC curve is constructed, it helps knowing about confusion
 Given this definition, there are four possible ways our classifier can label berries:
 <!-- <figure class = "berryLabels" style = "max-width:200px; width:100%"></figure> -->
 
-<figure class = "berryLabels" style = "max-width:200px"></div>
+<figure class = "berryLabels" style = "max-width:190px"></figure>
 
 <!-- < image of blueberries and raspberries with labels (2 x 2 grid) > -->
 
@@ -76,12 +78,17 @@ Given this definition, there are four possible ways our classifier can label ber
 
 We use the following terminology to refer to each of the possibilities:
 
-- *true positive* - a correctly labelled raspberry
-- *true negative* - a correctly labelled blueberry
-- *false positive* - a blueberry incorrectly labelled "raspberry"
-- *false negative* - a raspberry incorrectly labelled "blueberry"
+- *true positive* - a correctly labelled raspberry (top left)
+- *true negative* - a correctly labelled blueberry (bottom right)
+- *false positive* - a blueberry incorrectly labelled "raspberry" (bottom left)
+- *false negative* - a raspberry incorrectly labelled "blueberry" (top right)
 
-A confusion matrix is essentially a way to visualise the accuracy of a set of labels. 
+A confusion matrix is essentially a way to visualise the accuracy of a set of labels by counting the numbers in each category.
+Drag the berries between the two groups to see how this works:
+
+<figure class = "confusionMatrix"></figure>
+
+- *specificity* = $\frac{tp}{p}$
 
 ### Points in the ROC space
 
@@ -120,3 +127,4 @@ A confusion matrix is essentially a way to visualise the accuracy of a set of la
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src = "/js/roc2.js"></script>
 <script src = "/js/berries.js"></script>
+<script src = "/js/confusion-matrix.js"></script>
