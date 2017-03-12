@@ -3,10 +3,10 @@
 // dimensions and margins
 // note that the width and height represent the dimensions of the plotting area.
 // margins are added around the plotting area.
-var  margin = {top: 5, right: 10, bottom: 30, left: 30},
+var  margin = {top: 5, right: 10, bottom: 50, left: 60},
      width = 260,
      height = 260
-
+     
 // Example ROC plot
 var svg = d3.select("figure.roc-example").append("svg")
   // .attr("viewBox", margin.left + " " + margin.left + " " + width + " " + height )
@@ -17,10 +17,6 @@ var svg = d3.select("figure.roc-example").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// svg.append("circle")
-//     .attr("r", 10)
-//     .attr("cx", 0)
-//     .attr("cy", height);
 
 var xROC = d3.scaleLinear().domain([0, 1])
   .range([0, width]);
@@ -37,3 +33,16 @@ svg.append("g")
   .call(d3.axisBottom(xROC));
 svg.append("g")
   .call(yROCAxis);
+
+// and axis labels
+svg.append("text")
+  .attr("transform", "translate(" + (width / 2) + " ," +
+                      (height + 40) + ")")
+  .style("text-anchor", "middle")
+  .text("false positive rate");
+svg.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -40)
+  .attr("x", 0 - (height / 2))
+  .style("text-anchor", "middle")
+  .text("true positive rate");

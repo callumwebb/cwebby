@@ -6,11 +6,12 @@ title = "About me"
 I'm a mechanical engineer and computer scientist by training, and have been fortunate to experience a range of work in both areas as well as their intersection. Some things I've been a part of include:
 
 - an augmented reality app for mine planning
-- predictive models for conveyor belt wear
+- predictive models for conveyor belt wear rate
 - a mountain bike [suspension tuning system](https://www.quarq.com/) 
 - [hipflask](http://hello.hipflaskapp.com/), a socially networked gig guide
 - maintenance of heavy haul railways
-- autonomous haul trucks
+- autonomous haul trucks in mining
+- pilot program and first two years of [CoderDojo WA](http://coderdojowa.org.au/)
 
 More recently I've developed a keen interest for data science and statistics. Outside of work I enjoy photography, working out, and occassionally playing trombone.
 

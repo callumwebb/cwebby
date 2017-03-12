@@ -8,6 +8,34 @@ type: "portfolio"
 draft: false
 ---
 
+<style> /* set the CSS */
+  circle.raspberry {
+    fill: #d20000;
+    stroke: #500000;
+  }
+  circle.blueberry {
+    fill: #0059de;
+    stroke: #002050;
+  }
+  circle.pos {
+    fill: none;
+    stroke: #d20000;
+    stroke-opacity: 0.75;
+    stroke-width: 1.5px;
+    stroke-dasharray: 2.25;
+  }
+  circle.neg {
+    fill: none;
+    stroke: #0059de;
+    stroke-opacity: 0.75;
+    stroke-width: 1.5px;
+    stroke-dasharray: 2.25;
+  }
+</style>
+
+
+
+
 In this post we'll explore what [receiver operating characteristic (ROC)](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) curves are, how they're constructed, and what they're useful for, along with some important limitations.
 
 ## The muffin machine
@@ -24,7 +52,6 @@ After developing a classification algorithm that the machine will use to sort th
 
 <figure class="roc-example" style = "max-width:300px;width:100%"></figure> 
 
-< image (perhaps the d3 one) of ROC curve for the muffin machine >
 
 There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't do. 
 
@@ -32,15 +59,27 @@ There's a lot of information behind this plot, and it's important to understand 
 
 To understand how the ROC curve is constructed, it helps knowing about confusion matrices. Because we only have two types of berries, we can conceptualise our classifier as one that only recognises things as "raspberry" and "not raspberry" (this is *binary* classification). In this way, we'll label raspberries "positive" and blueberries "negative". 
 
-To keep things simple, we'll represent berries with simple circles:
+<!-- It would actually be completely fine to not introduce the *positive* / *negative* language and just stick with berries, but I'm hoping it will help highlight how all of this generalises.  -->
 
-< image of blueberry and raspberry symbols >
+<!-- To keep things simple, we'll keep representing berries as simple circles (totally not a cop out to save me from putting more effort into drawing things) -->
+
+<!-- <figure class = "berries" style = "max-width:300px; width:100%"></figure> -->
 
 Given this definition, there are four possible ways our classifier can label berries:
+<!-- <figure class = "berryLabels" style = "max-width:200px; width:100%"></figure> -->
 
-< image of blueberries and raspberries with labels (2 x 2 grid) >
+<figure class = "berryLabels" style = "max-width:200px"></div>
 
-We'd call a raspberry that's correctly labelled a *true positive*, and a correctly labelled blueberry a *true negative*. A blueberry incorrectly labelled "raspberry" is a *false positive*, and a raspberry incorrectly "not raspberry" would be a *false negative*.
+<!-- < image of blueberries and raspberries with labels (2 x 2 grid) > -->
+
+<!-- We'd call a raspberry that's correctly labelled a *true positive*, and a correctly labelled blueberry a *true negative*. A blueberry incorrectly labelled "raspberry" is a *false positive*, and a raspberry incorrectly "not raspberry" would be a *false negative*. -->
+
+We use the following terminology to refer to each of the possibilities:
+
+- *true positive* - a correctly labelled raspberry
+- *true negative* - a correctly labelled blueberry
+- *false positive* - a blueberry incorrectly labelled "raspberry"
+- *false negative* - a raspberry incorrectly labelled "blueberry"
 
 A confusion matrix is essentially a way to visualise the accuracy of a set of labels. 
 
@@ -80,3 +119,4 @@ A confusion matrix is essentially a way to visualise the accuracy of a set of la
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src = "/js/roc2.js"></script>
+<script src = "/js/berries.js"></script>
