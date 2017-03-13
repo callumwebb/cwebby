@@ -83,8 +83,8 @@ We use the following terminology to refer to each of the possibilities:
 - *false positive* - a blueberry incorrectly labelled "raspberry" (bottom left)
 - *false negative* - a raspberry incorrectly labelled "blueberry" (top right)
 
-A confusion matrix is essentially a way to visualise the accuracy of a set of labels by counting the numbers in each category.
-Drag the berries between the two groups to see how this works:
+A confusion matrix is essentially a way to visualise the correctness of a set of labels by counting the numbers in each category.
+Change the labels of these berries by clicking on them to see how this works:
 
 <figure class = "confusionMatrix"></figure>
 

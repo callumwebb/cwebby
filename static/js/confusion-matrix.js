@@ -1,6 +1,6 @@
 
 var  margin = {top: 20, right: 20, bottom: 20, left: 20},
-     width = 200,
+     width = 300,
      height = 100;
 
 var svg = d3.select("figure.confusionMatrix").append("svg")
@@ -9,8 +9,6 @@ var svg = d3.select("figure.confusionMatrix").append("svg")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-
-var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 
 function dragstarted(d) {
@@ -26,22 +24,31 @@ function dragged(d) {
 function dragended(d) {
   d3.event.subject.fx = null;
   d3.event.subject.fy = null;
+
+  // Check which cluster the node is nearest, and potentially update the label
+  d.label = d.label == "pos" ? "neg" : "pos";
+  restart();
 }
 
-var nodes = [{"type" : "blueberry", "label" : "blueberry"}, 
-             {"type" : "blueberry", "label" : "blueberry"}, 
-             {"type" : "blueberry", "label" : "blueberry"}, 
-             {"type" : "blueberry", "label" : "raspberry"}, 
-             {"type" : "raspberry", "label" : "raspberry"}, 
-             {"type" : "raspberry", "label" : "raspberry"}, 
-             {"type" : "raspberry", "label" : "raspberry"}, 
-             {"type" : "raspberry", "label" : "blueberry"}]
+var nodes = [{"type" : "blueberry", "label" : "neg", "id" : 1}, 
+             {"type" : "blueberry", "label" : "neg", "id" : 2}, 
+             {"type" : "blueberry", "label" : "neg", "id" : 3}, 
+             {"type" : "blueberry", "label" : "pos", "id" : 4}, 
+             {"type" : "raspberry", "label" : "pos", "id" : 5}, 
+             {"type" : "raspberry", "label" : "pos", "id" : 6}, 
+             {"type" : "raspberry", "label" : "pos", "id" : 7}, 
+             {"type" : "raspberry", "label" : "neg", "id" : 8}],
+  clusters = [{x: (-width / 4), y: 0}, {x: (width / 4), y : 0}];
+
+var forceX = d3.forceX((d) => clusters[d.label == "pos" ? 1 : 0].x).strength(0.01);
+var forceY = d3.forceY((d) => clusters[d.label == "pos" ? 1 : 0].y).strength(0.01);
 
 var simulation = d3.forceSimulation(nodes)
-  .force("charge", d3.forceManyBody().strength(5))
-  .force("collide", d3.forceCollide(15).iterations(2))
-  .force("x", d3.forceX())
-  .force("y", d3.forceY())
+  .velocityDecay(0.1)
+  // .force("charge", d3.forceManyBody().strength(5))
+  .force("collide", d3.forceCollide(24).iterations(2))
+  .force('x', forceX)
+  .force('y', forceY)
   .alphaTarget(1)
   .on("tick", ticked)
 
@@ -50,24 +57,25 @@ function dragsubject() {
 }
 
 var g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
-    node = g.append("g").attr("stroke", "#fff").attr("stroke-width", 1.5).selectAll(".node");
+    node = g.append("g").selectAll(".node");
 
 restart();
 
 function restart() { 
   // apply general update pattern to nodes
-  node = node.data(nodes);
+  node = node.data(nodes, function(d) {return d.id;});
   node.exit().remove();
-
   node = node.enter().append("g").merge(node)
+    .attr("class", "node")
     .call(d3.drag()
       .subject(dragsubject)
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended));
 
-  node.append("circle").attr("r",  8).attr("class", "blueberry");
-  node.append("circle").attr("r",  14).attr("class", "neg");
+  node.selectAll("circle").remove();
+  node.append("circle").attr("r",  15).attr("class", function(d) {return d.type});
+  node.append("circle").attr("r",  22).attr("class", function(d) {return d.label});
 
   // update and restart the simulation.
   simulation.nodes(nodes);
@@ -75,7 +83,9 @@ function restart() {
 }
 
 function ticked() {
-  node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"});
-  // node.attr("cx", function(d) {return d.x;})
-  //     .attr("cy", function(d) {return d.y;})
+  node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"})
 }
+
+
+
+// TODO .... update berries, not just add more on drag....
