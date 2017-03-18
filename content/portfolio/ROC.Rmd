@@ -86,7 +86,7 @@ We use the following terminology to refer to each of the possibilities:
 A confusion matrix is essentially a way to visualise the correctness of a set of labels by counting the numbers in each category.
 Change the labels of these berries by clicking on them to see how this works:
 
-<figure class = "confusionMatrix"></figure>
+<figure class = "confusionMatrix" style = "max-width:420px"></figure>
 
 - *specificity* = $\frac{tp}{p}$
 
