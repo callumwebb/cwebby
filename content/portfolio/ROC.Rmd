@@ -61,13 +61,16 @@ There's a lot of information behind this plot, and it's important to understand 
 
 To understand how the ROC curve is constructed, it helps knowing about confusion matrices. Because we only have two types of berries, we can conceptualise our classifier as one that only recognises things as "raspberry" and "not raspberry" (this is *binary* classification). In this way, we'll label raspberries "positive" and blueberries "negative". 
 
+!image of blueberry and raspberry!
+
 <!-- It would actually be completely fine to not introduce the *positive* / *negative* language and just stick with berries, but I'm hoping it will help highlight how all of this generalises.  -->
 
 <!-- To keep things simple, we'll keep representing berries as simple circles (totally not a cop out to save me from putting more effort into drawing things) -->
 
 <!-- <figure class = "berries" style = "max-width:300px; width:100%"></figure> -->
 
-Given this definition, there are four possible ways our classifier can label berries:
+Given this definition, there are four possible ways our classifier can label berries.
+Here, we add a dotted line around the berries to indicate our classifier's prediction of the berry type:
 <!-- <figure class = "berryLabels" style = "max-width:200px; width:100%"></figure> -->
 
 <figure class = "berryLabels" style = "max-width:190px"></figure>
@@ -86,7 +89,8 @@ We use the following terminology to refer to each of the possibilities:
 A confusion matrix is essentially a way to visualise the correctness of a set of labels by counting the numbers in each category.
 Change the labels of these berries by clicking on them to see how this works:
 
-<figure class = "confusionMatrix" style = "max-width:420px"></figure>
+<figure class = "berryClasses" style = "max-width:420px"></figure>
+<figure class = "berryMatrix" style = "max-width:300px"></figure>
 
 - *specificity* = $\frac{tp}{p}$
 
@@ -106,7 +110,7 @@ Change the labels of these berries by clicking on them to see how this works:
 - ROC curve is just the performance of the classifier across all thresholds
 - good vs bad algorithm
 
-## Area under the curve
+## Area under the curve (AUC)
 
 ### Discrimination performance
 
