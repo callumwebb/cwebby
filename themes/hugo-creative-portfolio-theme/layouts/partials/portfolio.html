@@ -22,7 +22,7 @@
                           <h4><a href="{{ .Permalink }}">{{ .Title }}</a></h4>
                           <div class="box-masonry-desription">
 						      {{ if .Description }}
-							      {{ .Description }}
+							      <p>{{ .Description }}</p>
 							  {{ else }}
                                   <p>{{ .Summary }}</p>
 							  {{ end  }}
