@@ -1,0 +1,181 @@
+---
+image: "img/portfolio/gravity-paper.jpg"
+showonlyimage: false
+date: "2016-11-05T19:44:32+05:30"
+title: "ROC Curves"
+description: "A short description perhaps?"
+type: "portfolio"
+draft: false
+---
+
+
+<style> /* set the CSS */
+  circle.raspberry {
+    fill: #d20000;
+    stroke: #500000;
+    stroke-width: 3px;
+  }
+  circle.blueberry {
+    fill: #0059de;
+    stroke: #002050;
+    stroke-width: 3px;
+  }
+  circle.pos {
+    fill: none;
+    stroke: #d20000;
+    stroke-opacity: 0.75;
+    stroke-width: 5px;
+    stroke-dasharray: 10;
+  }
+  circle.neg {
+    fill: none;
+    stroke: #0059de;
+    stroke-opacity: 0.75;
+    stroke-width: 5px;
+    stroke-dasharray: 10;
+  }
+</style>
+<p>In this post we’ll explore what <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">receiver operating characteristic (ROC)</a> curves are, how they’re constructed, and what they’re useful for, along with some important limitations.</p>
+<div id="the-muffin-machine" class="section level2">
+<h2>The muffin machine</h2>
+<p>Imagine we’ve built a machine that bakes two kinds of muffins, blueberry and raspberry. The only thing we need to do is feed the machine raw ingredients, and within thirty minutes, fresh muffins pop out the other end.</p>
+<p>Suppose that we buy our berries in bulk and that they come mixed together. Because we’re lazy (and hungry), we want the machine to seperate the rapsberries from the blueberries for us. This is an example of a <a href="https://en.wikipedia.org/wiki/Statistical_classification">classification problem</a>.</p>
+<p><img src="/img/roc/muffin-machine.png" style = "max-width:400px;width:100%;"/></p>
+<p>After developing a classification algorithm that the machine will use to sort the mixed berries, we’d like to estimate how well it’s going to perform. An ROC curve is one tool that can help us do this. Here’s an example curve which we’ll unpack below.</p>
+<figure class="roc-example" style="max-width:330px;width:100%">
+</figure>
+<p>There’s a lot of information behind this plot, and it’s important to understand what the ROC curve can and can’t do.</p>
+</div>
+<div id="confusion-matrix" class="section level2">
+<h2>Confusion matrix</h2>
+<p>To understand how the ROC curve is constructed, it helps knowing about confusion matrices. Because we only have two types of berries, we can conceptualise our classifier as one that only recognises things as “raspberry” and “not raspberry” (this is <em>binary</em> classification). In this way, we’ll label raspberries “positive” and blueberries “negative”.</p>
+<p>!image of blueberry and raspberry!</p>
+<!-- It would actually be completely fine to not introduce the *positive* / *negative* language and just stick with berries, but I'm hoping it will help highlight how all of this generalises.  -->
+<!-- To keep things simple, we'll keep representing berries as simple circles (totally not a cop out to save me from putting more effort into drawing things) -->
+<!-- <figure class = "berries" style = "max-width:300px; width:100%"></figure> -->
+<p>Given this definition, there are four possible ways our classifier can label berries. Here, we add a dotted line around the berries to indicate our classifier’s prediction of the berry type: <!-- <figure class = "berryLabels" style = "max-width:200px; width:100%"></figure> --></p>
+<figure class="berryLabels" style="max-width:190px">
+</figure>
+<!-- < image of blueberries and raspberries with labels (2 x 2 grid) > -->
+<!-- We'd call a raspberry that's correctly labelled a *true positive*, and a correctly labelled blueberry a *true negative*. A blueberry incorrectly labelled "raspberry" is a *false positive*, and a raspberry incorrectly "not raspberry" would be a *false negative*. -->
+<p>We use the following terminology to refer to each of the possibilities:</p>
+<ul>
+<li><em>true positive</em> - a correctly labelled raspberry (top left)</li>
+<li><em>true negative</em> - a correctly labelled blueberry (bottom right)</li>
+<li><em>false positive</em> - a blueberry incorrectly labelled “raspberry” (bottom left)</li>
+<li><em>false negative</em> - a raspberry incorrectly labelled “blueberry” (top right)</li>
+</ul>
+<p>A confusion matrix is essentially a way to visualise the correctness of a set of labels by counting the numbers in each category. Change the labels of these berries by clicking on them to see how this works:</p>
+<figure class="berryClasses" style="max-width:420px">
+</figure>
+<figure class="berryMatrix" style="max-width:300px">
+</figure>
+<ul>
+<li><em>specificity</em> = <span class="math inline">\(\frac{tp}{p}\)</span></li>
+</ul>
+<div id="points-in-the-roc-space" class="section level3">
+<h3>Points in the ROC space</h3>
+<p>Any set of predictions where the actual class is known can be shown on an ROC plot as a point – the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise the confusion matrix. Below we’re showing the current arrangement of berry predictions from before.</p>
+<p>&lt; consider adding a smaller version of the force layout so that they can be side by side &gt;</p>
+<p>&lt; ROC space with point and grid &gt;</p>
+<p>Play around with the berries again and try move the point to each corner of the plot. Some key ideas to think about:</p>
+<ul>
+<li>The upper right corner corresponds to labelling everything “positive”.</li>
+<li>The lower left corner corresponds to labelling everything “negative”.</li>
+<li>The upper left corner corresponds to perfect prediction.</li>
+</ul>
+<p>And equally important, but a bit trickier:</p>
+<ul>
+<li>A set of predictions that lies anywhere on the diagonal line is doing no better at seperating berries than random guessing.</li>
+<li>Any point that lies below the diagonal line is doing worse than guessing, but can produce useful results by simply reversing the predicted labels; this causes the point to reflect about the diagonal line.</li>
+<li>The point can only occupy positions on an equally spaced grid, because when we have a finite number of berries, the true and false positive rates are always a fraction of integers with a fixed denominator.</li>
+</ul>
+</div>
+<div id="discrimination-threshold" class="section level3">
+<h3>Discrimination threshold</h3>
+<p>So far we’ve discussed our classifier’s predictions in categorical terms – a berry is either a blueberry or a raspberry. Most algorithms that can be used for classification actually give you more information than just a label. For example, logistic regression, support vector machines, and random forests will all output a continuous value which is <em>related</em> to the probability that the input belongs to a certain class. (I say <em>related to probability</em> with care because the raw output is not necessarily a true probability, more on this later).</p>
+<p>Applied to our example, our classifier may output a value of “0.1” when it’s quite sure that it’s looking at a blueberry, and a value of “0.99” when it’s nearly certain it has a raspberry. If we applied our algorithm to a sample of berries, we might get a set of outputs that look like this:</p>
+<p>&lt; figure that shows how our classifier places berries on a continuous scale &gt;</p>
+<p>So how can we take this continuous output and turn it into categorical predictions? One simplistic approach is to apply a threshold or cutoff. Predictions below the cutoff are labelled negative, and predictions above are labelled positive.</p>
+<p>&lt; figure that shows the threshold and how it dictates predictions &gt; &lt; throw in a confusion matrix? would be neat &gt;</p>
+<p>Setting a threshold is common practice, but it can be a naive approach that doesn’t make full use of the available information. An alternative will be briefly discussed later.</p>
+</div>
+</div>
+<div id="drawing-the-roc-curve" class="section level2">
+<h2>Drawing the ROC curve</h2>
+<p>If you’ve played around with the interactive threshold above, hopefully you can start to appreciate the trade-offs that exist in classification. To increase the true positive rate, you can set a low threshold, but this usually comes at a cost of more false positives.</p>
+<p>The ROC curve can be seen as simply a visualisation of this trade-off and the performance of the classifier across all thresholds. Here’s the same threshold slider, but this time we show the ROC plot.</p>
+<p>&lt; same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line &gt;</p>
+<div id="algorithms-to-draw-the-curve" class="section level3">
+<h3>Algorithms to draw the curve</h3>
+<p>I’ve seen two algorithms for drawing the curve – they both work, but I think one is clearly better.</p>
+<p>To demonstrate the two algorithms, we’ll use R and take an excursion from the muffin machine. Here 1s are used for positives and 0s for negatives:</p>
+<pre class="r"><code># Let&#39;s make up some predictions
+pr &lt;- tibble::tribble(
+    ~prediction, ~actual,
+    0.9,           1, 
+    0.84,          1,
+    0.7,           0, 
+    0.55,          1,
+    0.24,          0, 
+    0.11,          0,
+    0.08,          1
+  )</code></pre>
+<p>The inferior algorithm usually looks something like this:</p>
+<pre class="r"><code>step &lt;- 0.01 
+rocPoints &lt;- data.frame(threshold = seq(0, 1 + step, step),
+                        fpr = NA, 
+                        tpr = NA)
+nPos = sum(pr$actual) 
+nNeg = nrow(pr) - nPos 
+
+for (i in seq_along(rocPoints$threshold)) {
+  thr &lt;-  1 + step - step * (i - 1)
+  fp &lt;- filter(pr, actual == 0, prediction &gt;= thr) %&gt;% count(.)
+  tp &lt;- filter(pr, actual == 1, prediction &gt;= thr) %&gt;% count(.)
+  rocPoints[i, &quot;fpr&quot;] &lt;- fp / nNeg
+  rocPoints[i, &quot;tpr&quot;] &lt;- tp / nPos
+}
+
+ggplot(rocPoints, aes(x = fpr, y = tpr)) +
+  geom_step() + 
+  geom_point() +
+  coord_fixed()</code></pre>
+<p><img src="/portfolio/ROC_files/figure-html/unnamed-chunk-3-1.png" width="288" /></p>
+<p>The reason I don’t like this is not that it’s usually less efficient, or even that it requires a seemingly arbitrary small magic number <em>step</em>, but because I think it reflects a lack of understanding of what the ROC curve is measuring (spoiler alert – it’s discrimination performance).</p>
+<p>A superior approach becomes clear once you understand that the predicted <em>values</em> are irrelevant, it’s only the <em>ordering</em> of predictions that matter for the ROC curve. Here’s the better algorithm:</p>
+</div>
+</div>
+<div id="area-under-the-curve-auc" class="section level2">
+<h2>Area under the curve (AUC)</h2>
+<div id="discrimination-performance" class="section level3">
+<h3>Discrimination performance</h3>
+<ul>
+<li>introduce slider! Watch ROC curve change.</li>
+<li>emphasise how only <em>ordering</em> is important.</li>
+</ul>
+</div>
+<div id="discrimination-vs.calibration" class="section level3">
+<h3>Discrimination vs. calibration</h3>
+<ul>
+<li>show extreme examples with all berries bunched up at one end of the scale.</li>
+<li>consider animation where berries jiggle arround, but don’t swap places.</li>
+<li>Frank Harrel quote</li>
+</ul>
+</div>
+</div>
+<div id="optimal-decision-theory" class="section level2">
+<h2>Optimal decision theory</h2>
+<ul>
+<li>Mostly provide links to resources</li>
+</ul>
+<script src = "/js/d3.js"></script>
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<script src = "/js/roc2.js"></script>
+<script src = "/js/berries.js"></script>
+<script src = "/js/confusion-matrix.js"></script>
+</div>
+<div id="closing" class="section level2">
+<h2>Closing</h2>
+<p>&lt; visualisation that ties everything together &gt;</p>
+</div>

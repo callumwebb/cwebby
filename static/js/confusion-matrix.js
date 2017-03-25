@@ -1,5 +1,5 @@
 
-var  margin = {top: 10, right: 5, bottom: 5, left: 5},
+var  margin = {top: 15, right: 5, bottom: 5, left: 5},
      width = 400,
      height = 190;
 
@@ -14,7 +14,7 @@ var g = berrySvg.append("g").attr("transform", "translate(" + width / 2 + "," + 
     node = g.append("g").selectAll(".node");
 
 
-var matMargin = {top:60, right:10, bottom:10, left:80},
+var matMargin = {top:50, right:10, bottom:10, left:60},
     matWidth = 210;
     matHeight = 170;
 
@@ -31,9 +31,11 @@ var matRect = matSvg.append("rect")
   .attr("fill", "none")
   .attr("stroke", "black");
 
+var matLabels = matSvg.selectAll(".matLabel").append("text")
+
 // Predicted labels
 matSvg.append("text")
-  .attr("transform", "translate(" + (matWidth / 2) + " ," + (- 2.5 * matMargin.top / 3) + ")")
+  .attr("transform", "translate(" + (matWidth / 2) + " ," + (- 2 * matMargin.top / 3) + ")")
   .style("text-anchor", "middle")
   .text("predicted");
 matSvg.append("text")
@@ -72,59 +74,33 @@ matSvg.append("text")
   .text("−");
 
 
+// matrix contents
+var matValue = matSvg.append("text").selectAll(".matValue")
 
-// var matMargin = {top: 20, right: 20, bottom: 20, left: 60}
-// var mat = berrySvg.append("g").attr("transform", "translate(" + matMargin.left + "," + (height / 2 + 20) + ")"); // 20px padding between berries and matrix
-// var mat = mat.append("g").attr("transform", "translate(" + matMargin.left + "," + matMargin.top + ")");
-// var mat2 = mat.append("g")
-  // .attr("transform", "translate(20, 0)");
-
-
-// Predicted labels
-// mat.append("text")
-//   .attr("transform", "translate(" + (width / 2 - matMargin.left) + " ," + (- 10) + ")")
-//   .style("text-anchor", "middle")
-//   .text("predicted");
-// mat.append("text")
-//   .attr("transform", "translate(" + (width / 4 - matMargin.left) + "," + 5 + ")")
-//   .style("text-anchor", "middle")
-//   .style("alignment-baseline", "middle")
-//   .style("font-weight", "bold")
-//   .text("+");
-// mat.append("text")
-//   .attr("transform", "translate(" + (3 * width / 4 - matMargin.left) + "," + 5 + ")")
-//   .style("text-anchor", "middle")
-//   .style("alignment-baseline", "middle")
-//   .style("font-weight", "bold")
-//   .text("−");
-
-// Actual labels
-// svg.append("text")
-//   .attr("transform", "rotate(-90)")
-//   .attr("y", - 2.5 * margin.left / 3)
-//   .attr("x", - height / 2)
-//   .style("text-anchor", "middle")
-//   .text("actual");
-// svg.append("text")
-//   .attr("x", 0 - 1.1 * margin.left / 2)
-//   .attr("y", 0)
-//   .style("text-anchor", "middle")
-//   .style("alignment-baseline", "middle")
-//   .style("font-weight", "bold")
-//   .text("+");
-// svg.append("text")
-//   .attr("x", 0 - 1.1 * margin.left / 2)
-//   .attr("y", height)
-//   .style("text-anchor", "middle")
-//   .style("alignment-baseline", "middle")
-//   .style("font-weight", "bold")
-//   .text("−");
-
-// mat.append("rect").attr("transform", "translate(0, 20)")
-//   .attr("width", width - 60)
-//   .attr("height", height / 2)
-//   .attr("fill", "none")
-//   .attr("stroke", "black");
+matSvg.append("text")
+  .attr("x", matWidth / 4.0)
+  .attr("y", matHeight / 4.0)
+  .style("text-anchor", "middle")
+  .style("alignment-baseline", "middle")
+  .text("tp");
+matSvg.append("text")
+  .attr("x", 3 * matWidth / 4.0)
+  .attr("y", matHeight / 4.0)
+  .style("text-anchor", "middle")
+  .style("alignment-baseline", "middle")
+  .text("fn");
+matSvg.append("text")
+  .attr("x", matWidth / 4.0)
+  .attr("y", 3 * matHeight / 4.0)
+  .style("text-anchor", "middle")
+  .style("alignment-baseline", "middle")
+  .text("foo");
+matSvg.append("text")
+  .attr("x", 3 * matWidth / 4.0)
+  .attr("y", 3 * matHeight / 4.0)
+  .style("text-anchor", "middle")
+  .style("alignment-baseline", "middle")
+  .text("tn");
 
 berrySvg.append("text")
   .attr("x", width / 4)
@@ -154,6 +130,7 @@ function dragged(d) {
 function dragended(d) {
   d3.event.subject.fx = null;
   d3.event.subject.fy = null;
+  updateMatrix();
 }
 
 var nodes = [{"type" : "blueberry", "label" : "neg"}, 
@@ -166,7 +143,11 @@ var nodes = [{"type" : "blueberry", "label" : "neg"},
              {"type" : "blueberry", "label" : "neg"}, 
              {"type" : "blueberry", "label" : "pos"}, 
              {"type" : "raspberry", "label" : "pos"}],
-  clusters = [{x: (-width / 4), y: 0}, {x: (width / 4), y : 0}];
+  clusters = [{x: (-width / 4), y: 0}, {x: (width / 4), y : 0}],
+  matValues = {"tp" : null,
+               "fp" : null,
+               "tn" : null,
+               "fn" : null};
 
 var forceX = d3.forceX((d) => clusters[d.label == "pos" ? 1 : 0].x).strength(0.02);
 var forceY = d3.forceY((d) => clusters[d.label == "pos" ? 1 : 0].y).strength(0.02);
@@ -206,6 +187,48 @@ function restart() {
 
 function ticked() {
   node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"})
+}
+
+function updateMatrix() {
+  updateMatValues();
+
+  matValue = matValue.data(matValues);
+  matValue.exit().remove();
+  matValue = matValue.enter().append("text").merge(matValue)
+    .attr("class", "matValue")
+    .attr("x", matWidth / 4.0)
+    .attr("y", matHeight / 4.0)
+    .style("text-anchor", "middle")
+    .style("alignment-baseline", "middle")
+    .text("weeee");
+  // TODO: calculate membership of four categories from node data
+  // TODO: update other quantities, like tp rate, specificity etc. Look into rendering of dynamic fractions
+  // tp.text("a");
+  // fp.text("a");
+  // fn.text("a");
+  // tn.text("a");
+}
+
+function updateMatValues() {
+  matValues.tp = 0;
+  matValues.fp = 0;
+  matValues.tn = 0;
+  matValues.fn = 0;
+
+  for (var i = 0; i < nodes.length; i++) {
+    switch (nodes[i].type) {
+      case "raspberry": 
+        nodes[i].label == "pos" ? matValues.tp++ : matValues.fn++;
+        break;
+      case "blueberry": 
+        nodes[i].label == "neg" ? matValues.tn++ : matValues.fp++;
+        break;
+      default:
+        console.log("unknown node type!");
+        break;
+    }
+  }
+  console.log(matValues)
 }
 
 restart();
