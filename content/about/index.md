@@ -26,3 +26,8 @@ I completed my studies at the University of Western Australia in 2013, majoring 
 
 I'm happy to report that my appreciation of Lego is still as strong as ever!
 
+### This site
+
+This site was built using [blogdown](https://github.com/rstudio/blogdown) for R, and a slightly modified theme from xx. 
+It's built using a [wercker bucket](https://app.wercker.com/cwebby/cwebby/runs) tied to my [github](https://github.com/callumwebb/cwebby) repository.
+

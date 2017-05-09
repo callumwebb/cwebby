@@ -93,7 +93,7 @@ Change the labels of these berries by clicking on them to see how this works:
 
 ### Points in the ROC space
 
-Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise the confusion matrix. Below we're showing the current arrangement of berry predictions from before.
+Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise one part of the confusion matrix. Below we're showing the current arrangement of berry predictions from before.
 
 < consider adding a smaller version of the force layout so that they can be side by side >
 
@@ -137,28 +137,33 @@ Setting a threshold is common practice, but it can be a naive approach that does
 
 ## Drawing the ROC curve
 
-If you've played around with the interactive threshold above, hopefully you can start to appreciate the trade-offs that exist in classification. 
-To increase the true positive rate, you can set a low threshold, but this usually comes at a cost of more false positives. 
+If you've played around with the interactive threshold above, hopefully you can see the trade-offs that exist in classification. 
+To increase the true positive rate, you could set a low threshold, but this usually comes at a cost of more false positives. 
 
-The ROC curve can be seen as simply a visualisation of this trade-off and the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot.
+The ROC curve is a visualisation of this trade-off and the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot. Notice how every threshold value corresponds to a point on the curve.
 
 < same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line > 
 
 
-### Algorithms to draw the curve
+### Using base R
+
+There are packages that can give us the ROC plot of a classifier for free, but it's useful to think about how to do it yourself.
+
+
 
 I've seen two algorithms for drawing the curve -- they both work, but I think one is clearly better.
+We'll focus on generating the coordinates of points that make up the ROC curve, and then use ggplot2 at the end to actually draw it. 
 
-To demonstrate the two algorithms, we'll use R and take an excursion from the muffin machine. Here 1s are used for positives and 0s for negatives:
+To demonstrate, we'll use R and take an excursion from the muffin machine. Here 1 is used for positives and 0 for negatives:
 
 ```{r, echo = FALSE, message = FALSE}
-library(dplyr)
-library(ggplot2)
+suppressMessages(library(dplyr))
+suppressMessages(library(ggplot2))
 ```
 
 
 ```{r}
-# Let's make up some predictions
+# Let's make up some dummy predictions
 pr <- tibble::tribble(
     ~prediction, ~actual,
     0.9,           1, 
@@ -191,43 +196,36 @@ for (i in seq_along(rocPoints$threshold)) {
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
   geom_step() + 
-  geom_point() +
-  coord_fixed()
+  geom_point()
 ```
 
 The reason I don't like this is not that it's usually less efficient, or even that it requires a seemingly arbitrary small magic number *step*, but because I think it reflects a lack of understanding of what the ROC curve is measuring (spoiler alert -- it's discrimination performance).
 
-A superior approach becomes clear once you understand that the predicted *values* are irrelevant, it's only the *ordering* of predictions that matter for the ROC curve. Here's the better algorithm:
+A superior approach becomes clear once you understand that the predicted *values* are irrelevant; it's only the *ordering* of predictions that matter for the ROC curve. Here's the better algorithm:
 
-```{r, fig.width = 3, fig.height = 3}
+```{r, fig.width = 3, fig.height = 2}
 
 pr <- arrange(pr, desc(prediction))
 
-nPos = sum(pr$actual) 
-nNeg = nrow(pr) - nPos 
+rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
+                        tpr = cumsum(pr$actual) / sum(pr$actual))
 
-# Start from the top of the list, predicting everything as negative
-tp <- 0
-fp <- sum(pr$actual == 0)
+ggplot(rocPoints, aes(x = fpr, y = tpr)) +
+  geom_step() + 
+  geom_point() +
+  coord_fixed()
+```
 
-rocPoints <- data.frame(fpr = rep(NA, nrow(pr) + 1),
-                        tpr = NA)
+```{r, fig.width = 3, fig.height = 2}
 
-for (i in seq_along(pr$actual)) {
-  if (pr[i, "actual"] == 1) {
-    tp <- tp + 1
-  } else {
-    fp <- fp + 1
-  }
-  rocPoints[i, "fpr"] <- fp / nNeg
-  rocPoints[i, "tpr"] <- tp / nPos
-} 
+pr <- arrange(pr, desc(prediction))
 
+rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
+                        tpr = cumsum(pr$actual) / sum(pr$actual))
 
-# foo <- purrr::walk(pr$actualClass, function(x) {
-#   
-# })
-
+ggplot(rocPoints, aes(x = fpr, y = tpr)) +
+  geom_step() + 
+  geom_point() 
 ```
 
 

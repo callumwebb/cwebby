@@ -142,18 +142,20 @@ var nodes = [{"type" : "blueberry", "label" : "neg"},
              {"type" : "blueberry", "label" : "neg"}, 
              {"type" : "blueberry", "label" : "neg"}, 
              {"type" : "blueberry", "label" : "pos"}, 
-             {"type" : "raspberry", "label" : "pos"}],
+             {"type" : "raspberry", "label" : "pos"},
+             {"type" : "blueberry", "label" : "neg"}, 
+             {"type" : "blueberry", "label" : "pos"}],
   clusters = [{x: (-width / 4), y: 0}, {x: (width / 4), y : 0}],
   matValues = {"tp" : null,
                "fp" : null,
                "tn" : null,
                "fn" : null};
 
-var forceX = d3.forceX((d) => clusters[d.label == "pos" ? 1 : 0].x).strength(0.02);
-var forceY = d3.forceY((d) => clusters[d.label == "pos" ? 1 : 0].y).strength(0.02);
+var forceX = d3.forceX((d) => clusters[d.label == "pos" ? 1 : 0].x).strength(0.04);
+var forceY = d3.forceY((d) => clusters[d.label == "pos" ? 1 : 0].y).strength(0.04);
 
 var simulation = d3.forceSimulation(nodes)
-  .velocityDecay(0.1)
+  .velocityDecay(0.2)
   .force("collide", d3.forceCollide(25).iterations(2))
   .force('x', forceX)
   .force('y', forceY)
