@@ -1,4 +1,5 @@
 
+// margin around berry visualisation
 var  margin = {top: 15, right: 5, bottom: 5, left: 5},
      width = 400,
      height = 190;
@@ -13,10 +14,10 @@ var berrySvg = d3.select("figure.berryClasses").append("svg")
 var g = berrySvg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
     node = g.append("g").selectAll(".node");
 
-
+// margin around confusion matrix
 var matMargin = {top:50, right:10, bottom:10, left:60},
-    matWidth = 210;
-    matHeight = 170;
+    matWidth = 170;
+    matHeight = 150;
 
 var matSvg = d3.select("figure.berryMatrix").append("svg")
   .attr("viewBox", 0 + " " + 0 + " " + (matWidth + matMargin.left + matMargin.right) + " " + (matHeight + matMargin.bottom + matMargin.top))
@@ -31,7 +32,21 @@ var matRect = matSvg.append("rect")
   .attr("fill", "none")
   .attr("stroke", "black");
 
-var matLabels = matSvg.selectAll(".matLabel").append("text")
+// quadrant lines
+matSvg.append("line")
+  .attr("x1", matWidth / 2)
+  .attr("y1", 0)
+  .attr("x2", matWidth / 2)
+  .attr("y2", matHeight)
+  .attr("stroke", "black")
+  .attr("stroke-dasharray", "5, 5")
+matSvg.append("line")
+  .attr("x1", 0)
+  .attr("y1", matHeight / 2)
+  .attr("x2", matWidth)
+  .attr("y2", matHeight / 2)
+  .attr("stroke", "black")  
+  .attr("stroke-dasharray", "5, 5")
 
 // Predicted labels
 matSvg.append("text")
@@ -75,27 +90,25 @@ matSvg.append("text")
 
 
 // matrix contents
-var matValue = matSvg.append("text").selectAll(".matValue")
-
-matSvg.append("text")
+var tpLabel = matSvg.append("text")
   .attr("x", matWidth / 4.0)
   .attr("y", matHeight / 4.0)
   .style("text-anchor", "middle")
   .style("alignment-baseline", "middle")
   .text("tp");
-matSvg.append("text")
+var fnLabel = matSvg.append("text")
   .attr("x", 3 * matWidth / 4.0)
   .attr("y", matHeight / 4.0)
   .style("text-anchor", "middle")
   .style("alignment-baseline", "middle")
   .text("fn");
-matSvg.append("text")
+var fpLabel = matSvg.append("text")
   .attr("x", matWidth / 4.0)
   .attr("y", 3 * matHeight / 4.0)
   .style("text-anchor", "middle")
   .style("alignment-baseline", "middle")
-  .text("foo");
-matSvg.append("text")
+  .text("fp");
+var tnLabel = matSvg.append("text")
   .attr("x", 3 * matWidth / 4.0)
   .attr("y", 3 * matHeight / 4.0)
   .style("text-anchor", "middle")
@@ -133,6 +146,7 @@ function dragended(d) {
   updateMatrix();
 }
 
+// Visualisation initial data
 var nodes = [{"type" : "blueberry", "label" : "neg"}, 
              {"type" : "blueberry", "label" : "pos"}, 
              {"type" : "raspberry", "label" : "pos"}, 
@@ -150,6 +164,7 @@ var nodes = [{"type" : "blueberry", "label" : "neg"},
                "fp" : null,
                "tn" : null,
                "fn" : null};
+var tp = 100;
 
 var forceX = d3.forceX((d) => clusters[d.label == "pos" ? 1 : 0].x).strength(0.04);
 var forceY = d3.forceY((d) => clusters[d.label == "pos" ? 1 : 0].y).strength(0.04);
@@ -193,22 +208,16 @@ function ticked() {
 
 function updateMatrix() {
   updateMatValues();
+  tpLabel.text(matValues.tp)
+  fnLabel.text(matValues.fn)
+  fpLabel.text(matValues.fp)
+  tnLabel.text(matValues.tn)
 
-  matValue = matValue.data(matValues);
-  matValue.exit().remove();
-  matValue = matValue.enter().append("text").merge(matValue)
-    .attr("class", "matValue")
-    .attr("x", matWidth / 4.0)
-    .attr("y", matHeight / 4.0)
-    .style("text-anchor", "middle")
-    .style("alignment-baseline", "middle")
-    .text("weeee");
-  // TODO: calculate membership of four categories from node data
-  // TODO: update other quantities, like tp rate, specificity etc. Look into rendering of dynamic fractions
-  // tp.text("a");
-  // fp.text("a");
-  // fn.text("a");
-  // tn.text("a");
+  // d3.select("#specificity").text("$\\frac{" + matValues.tp + "}{" + matValues.p + "}$")
+  d3.select("#sensitivity").text(matValues.tp + " / " + (matValues.tp + matValues.fn))
+  d3.select("#specificity").text(matValues.tn + " / " + (matValues.tn + matValues.fp))
+  d3.select("#precision").text(matValues.tp + " / " + (matValues.tp + matValues.fp))
+  // MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 }
 
 function updateMatValues() {
@@ -230,7 +239,6 @@ function updateMatValues() {
         break;
     }
   }
-  console.log(matValues)
 }
 
 restart();

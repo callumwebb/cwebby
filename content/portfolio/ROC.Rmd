@@ -87,9 +87,15 @@ A confusion matrix is essentially a way to visualise the correctness of a set of
 Change the labels of these berries by clicking on them to see how this works:
 
 <figure class = "berryClasses" style = "max-width:420px"></figure>
-<figure class = "berryMatrix" style = "max-width:300px"></figure>
+<figure class = "berryMatrix" style = "max-width:250px"></figure>
 
-- *specificity* = $\frac{tp}{p}$
+There are some standard terms that describe different ratios of values from the confusion matrix: 
+
+- True positive rate, or *sensitivity* = $\frac{tp}{p}$ = <span id = "sensitivity"></span>
+- True negative rate, or *specificity*  = $\frac{tn}{n}$ = <span id = "specificity"></span>
+- Positive predicted value, or *precision*  = $\frac{tp}{tp + fp}$ = <span id = "precision"></span>
+
+…and a [whole bunch of others](https://en.wikipedia.org/wiki/Confusion_matrix)
 
 ### Points in the ROC space
 

@@ -18,7 +18,9 @@ More recently I've developed a keen interest for data science and statistics. Ou
 ![This is me](/img/me.jpg)
 
 
-#### Education
+
+
+### Education
 
 Growing up, I loved to tinker with computers, electronics, and mechanical systems. I couldn't decide which was most fun, so I settled on doing a double degree in Computer Science and Mechanical Engineering. 
 
@@ -28,6 +30,9 @@ I'm happy to report that my appreciation of Lego is still as strong as ever!
 
 ### This site
 
-This site was built using [blogdown](https://github.com/rstudio/blogdown) for R, and a slightly modified theme from xx. 
-It's built using a [wercker bucket](https://app.wercker.com/cwebby/cwebby/runs) tied to my [github](https://github.com/callumwebb/cwebby) repository.
+This site was put together as a portfolio and an opportunity to learn more about topics I find interesting, publishing content from R, using D3, and automated build processes. Hopefully you find it interesting and useful too!
+
+Some tools used include [blogdown](https://github.com/rstudio/blogdown) for R, and a slightly modified theme from xx. 
+It's built using a [wercker bucket](https://app.wercker.com/cwebby/cwebby/runs) tied to my [Github](https://github.com/callumwebb/cwebby) repository.
+
 
