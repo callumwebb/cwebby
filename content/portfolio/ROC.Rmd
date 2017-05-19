@@ -89,7 +89,7 @@ Change the labels of these berries by clicking on them to see how this works:
 <figure class = "berryClasses" style = "max-width:420px"></figure>
 <figure class = "berryMatrix" style = "max-width:250px"></figure>
 
-There are some standard terms that describe different ratios of values from the confusion matrix: 
+There are some standard terms that describe different ratios of values from the confusion matrix, for example: 
 
 - True positive rate, or *sensitivity* = $\frac{tp}{p}$ = <span id = "sensitivity"></span>
 - True negative rate, or *specificity*  = $\frac{tn}{n}$ = <span id = "specificity"></span>
@@ -100,6 +100,8 @@ There are some standard terms that describe different ratios of values from the 
 ### Points in the ROC space
 
 Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise one part of the confusion matrix. Below we're showing the current arrangement of berry predictions from before.
+
+<figure class = "berryClasses" style = "max-width:320px"></figure>
 
 < consider adding a smaller version of the force layout so that they can be side by side >
 

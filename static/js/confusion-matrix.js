@@ -4,7 +4,7 @@ var  margin = {top: 15, right: 5, bottom: 5, left: 5},
      width = 400,
      height = 190;
 
-var berrySvg = d3.select("figure.berryClasses").append("svg")
+var berrySvg = d3.selectAll("figure.berryClasses").append("svg")
   .attr("viewBox", 0 + " " + 0 + " " + (width + margin.left + margin.right) + " " + (height + margin.bottom + margin.top))
   .attr("preserveAspectRatio", "xMidYMid meet")
   .append("g")
