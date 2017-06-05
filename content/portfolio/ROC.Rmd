@@ -259,7 +259,10 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 
 <script src = "/js/d3.js"></script>
 <script src = "/js/berry-clusters.js"></script>
+<script src = "/js/confusion-matrix.js"></script>
 <script src = "/js/ROC-visuals.js"></script>
+
+
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <!-- <script src = "/js/roc2.js"></script> -->
 <!-- <script src = "/js/berries.js"></script> -->

@@ -3,15 +3,15 @@ function berryClusterPlot() {
   
   var  margin = {top: 15, right: 5, bottom: 5, left: 5},  // default margin
        width = 390  ,  // default width
-       height = 190;  // default height
+       height = 170;  // default height
 
-  var berrySize = 22 // default berry (outermost) diameter
+  var berrySize = 18 // default berry (outermost) diameter
 
   function plot(selection) {
     selection.each(function(data) {
 
       // create a local copy of the data
-      var data = JSON.parse(JSON.stringify(data));
+      // var data = JSON.parse(JSON.stringify(data));
 
       // Select the svg element, if it exists.
       var svg = d3.select(this).selectAll("svg").data([data]);
