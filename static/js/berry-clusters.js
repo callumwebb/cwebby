@@ -9,7 +9,7 @@ function berryClusterPlot() {
 
   function plot(selection) {
     selection.each(function(data) {
-
+      // console.log(data)
       // create a local copy of the data
       // var data = JSON.parse(JSON.stringify(data));
 
@@ -48,7 +48,7 @@ function berryClusterPlot() {
       var forceY = d3.forceY((d) => clusters[d.label == 1 ? 1 : 0].y).strength(0.04);
 
       // set up force simulation
-      var simulation = d3.forceSimulation(data)
+      var simulation = d3.forceSimulation(data.state)
         .velocityDecay(0.2)
         .force("collide", d3.forceCollide(berrySize + 3).iterations(2))
         .force('x', forceX)
@@ -61,6 +61,8 @@ function berryClusterPlot() {
         d3.event.subject.fx = d3.event.subject.x;
         d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
+        // data.set(data.get())
+        data.updatePlots()
         update();
       }
       function dragged(d) {
@@ -82,7 +84,7 @@ function berryClusterPlot() {
 
       function update() {
         // apply general update pattern to nodes
-        node = node.data(data);
+        node = node.data(data.state);
         node.exit().remove();
         node = node.enter().append("g").merge(node)
           .attr("class", "node")
@@ -97,7 +99,7 @@ function berryClusterPlot() {
         node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
 
         // update and restart the simulation
-        simulation.nodes(data);
+        simulation.nodes(data.state);
         simulation.alpha(1).restart();
       }
 

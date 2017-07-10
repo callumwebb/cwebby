@@ -92,12 +92,15 @@ Change the labels of these berries by clicking on them to see how this works:
 There are some standard terms that describe different ratios of values from the confusion matrix, for example: 
 
 <figure class = "berryClasses2" style = "max-width:420px"></figure>
+<figure class = "berryMatrix" style = "max-width:250px"></figure>
 
 - True positive rate, or *sensitivity* = $\frac{tp}{p}$ = <span id = "sensitivity"></span>
 - True negative rate, or *specificity*  = $\frac{tn}{n}$ = <span id = "specificity"></span>
 - Positive predicted value, or *precision*  = $\frac{tp}{tp + fp}$ = <span id = "precision"></span>
 
 …and a [whole bunch of others](https://en.wikipedia.org/wiki/Confusion_matrix)
+
+
 
 ### Points in the ROC space
 
@@ -258,7 +261,7 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 
 
 <script src = "/js/d3.js"></script>
-<script src = "/js/berry-clusters.js"></script>
+<script src = "/js/berry-clusters-new.js"></script>
 <script src = "/js/confusion-matrix.js"></script>
 <script src = "/js/ROC-visuals.js"></script>
 

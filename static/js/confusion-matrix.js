@@ -7,7 +7,8 @@ function confusionMatrix() {
       height = 150;
 
   function matrix(selection) {
-    selection.each(function(data) {
+    selection.each(function(data) { 
+      data = data.state
 
       // From the data, calculate the matrix contents
       var tp = 0;
