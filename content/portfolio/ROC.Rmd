@@ -49,14 +49,14 @@ Suppose that we buy our berries in bulk and that they come mixed together. Becau
 
 After developing a classification algorithm that the machine will use to sort the mixed berries, we'd like to estimate how well it's going to perform. An ROC curve is one tool that can help us do this. Here's an example curve which we'll unpack below.
 
-<figure class="roc-example" style = "max-width:330px;width:100%"></figure> 
+<figure class="roc-example" style = "max-width:330px;width:100%"></figure>
 
 
-There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't do. 
+There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't do.
 
 ## Confusion matrix
 
-To understand how the ROC curve is constructed, it helps knowing about confusion matrices. Because we only have two types of berries, we can conceptualise our classifier as one that only recognises things as "raspberry" and "not raspberry" (this is *binary* classification). In this way, we'll label raspberries "positive" and blueberries "negative". 
+To understand how the ROC curve is constructed, it helps knowing about confusion matrices. Because we only have two types of berries, we can conceptualise our classifier as one that only recognises things as "raspberry" and "not raspberry" (this is *binary* classification). In this way, we'll label raspberries "positive" and blueberries "negative".
 
 !image of blueberry and raspberry!
 
@@ -89,7 +89,7 @@ Change the labels of these berries by clicking on them to see how this works:
 <figure class = "berryClasses" style = "max-width:400px"></figure>
 <figure class = "berryMatrix" style = "max-width:250px"></figure>
 
-There are some standard terms that describe different ratios of values from the confusion matrix, for example: 
+There are some standard terms that describe different ratios of values from the confusion matrix, for example:
 
 <figure class = "berryClasses2" style = "max-width:420px"></figure>
 <figure class = "berryMatrix" style = "max-width:250px"></figure>
@@ -112,7 +112,7 @@ Any set of predictions where the actual class is known can be shown on an ROC pl
 
 < ROC space with point and grid >
 
-Play around with the berries again and try move the point to each corner of the plot. 
+Play around with the berries again and try move the point to each corner of the plot.
 Some key ideas to think about:
 
 - The upper right corner corresponds to labelling everything "positive".
@@ -129,18 +129,18 @@ And equally important, but a bit trickier:
 
 ### Discrimination threshold
 
-So far we've discussed our classifier's predictions in categorical terms -- a berry is either a blueberry or a raspberry. 
+So far we've discussed our classifier's predictions in categorical terms -- a berry is either a blueberry or a raspberry.
 Most algorithms that can be used for classification actually give you more information than just a label.
-For example, logistic regression, support vector machines, and random forests will all output a continuous value which is *related* to the probability that the input belongs to a certain class. 
+For example, logistic regression, support vector machines, and random forests will all output a continuous value which is *related* to the probability that the input belongs to a certain class.
 (I say *related to probability* with care because the raw output is not necessarily a true probability, more on this later).
 
-Applied to our example, our classifier may output a value of "0.1" when it's quite sure that it's looking at a blueberry, and a value of "0.99" when it's nearly certain it has a raspberry. 
+Applied to our example, our classifier may output a value of "0.1" when it's quite sure that it's looking at a blueberry, and a value of "0.99" when it's nearly certain it has a raspberry.
 If we applied our algorithm to a sample of berries, we might get a set of outputs that look like this:
 
 < figure that shows how our classifier places berries on a continuous scale >
 
-So how can we take this continuous output and turn it into categorical predictions? 
-One simplistic approach is to apply a threshold or cutoff. 
+So how can we take this continuous output and turn it into categorical predictions?
+One simplistic approach is to apply a threshold or cutoff.
 Predictions below the cutoff are labelled negative, and predictions above are labelled positive.
 
 < figure that shows the threshold and how it dictates predictions >
@@ -150,12 +150,12 @@ Setting a threshold is common practice, but it can be a naive approach that does
 
 ## Drawing the ROC curve
 
-If you've played around with the interactive threshold above, hopefully you can see the trade-offs that exist in classification. 
-To increase the true positive rate, you could set a low threshold, but this usually comes at a cost of more false positives. 
+If you've played around with the interactive threshold above, hopefully you can see the trade-offs that exist in classification.
+To increase the true positive rate, you could set a low threshold, but this usually comes at a cost of more false positives.
 
 The ROC curve is a visualisation of this trade-off and the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot. Notice how every threshold value corresponds to a point on the curve.
 
-< same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line > 
+< same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line >
 
 
 ### Using base R
@@ -165,7 +165,7 @@ There are packages that can give us the ROC plot of a classifier for free, but i
 
 
 I've seen two algorithms for drawing the curve -- they both work, but I think one is clearly better.
-We'll focus on generating the coordinates of points that make up the ROC curve, and then use ggplot2 at the end to actually draw it. 
+We'll focus on generating the coordinates of points that make up the ROC curve, and then use ggplot2 at the end to actually draw it.
 
 To demonstrate, we'll use R and take an excursion from the muffin machine. Here 1 is used for positives and 0 for negatives:
 
@@ -179,11 +179,11 @@ suppressMessages(library(ggplot2))
 # Let's make up some dummy predictions
 pr <- tibble::tribble(
     ~prediction, ~actual,
-    0.9,           1, 
+    0.9,           1,
     0.84,          1,
-    0.7,           0, 
+    0.7,           0,
     0.55,          1,
-    0.24,          0, 
+    0.24,          0,
     0.11,          0,
     0.08,          1
   )
@@ -192,12 +192,12 @@ pr <- tibble::tribble(
 The inferior algorithm usually looks something like this:
 
 ```{r, fig.width = 3, fig.height = 3}
-step <- 0.01 
+step <- 0.01
 rocPoints <- data.frame(threshold = seq(0, 1 + step, step),
-                        fpr = NA, 
+                        fpr = NA,
                         tpr = NA)
-nPos = sum(pr$actual) 
-nNeg = nrow(pr) - nPos 
+nPos = sum(pr$actual)
+nNeg = nrow(pr) - nPos
 
 for (i in seq_along(rocPoints$threshold)) {
   thr <-  1 + step - step * (i - 1)
@@ -208,7 +208,7 @@ for (i in seq_along(rocPoints$threshold)) {
 }
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
-  geom_step() + 
+  geom_step() +
   geom_point()
 ```
 
@@ -224,7 +224,7 @@ rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
                         tpr = cumsum(pr$actual) / sum(pr$actual))
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
-  geom_step() + 
+  geom_step() +
   geom_point() +
   coord_fixed()
 ```
@@ -237,8 +237,8 @@ rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
                         tpr = cumsum(pr$actual) / sum(pr$actual))
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
-  geom_step() + 
-  geom_point() 
+  geom_step() +
+  geom_point()
 ```
 
 
@@ -261,10 +261,11 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 
 
 <script src = "/js/d3.js"></script>
-<script src = "/js/berry-clusters-new.js"></script>
+<!-- <script src = "/js/berry-clusters-new.js"></script> -->
 <script src = "/js/confusion-matrix.js"></script>
-<script src = "/js/ROC-visuals.js"></script>
-
+<script src = "/js/berry-cluster-view.js"></script>
+<!-- <script src = "/js/ROC-visuals.js"></script> -->
+<script src = "/js/ROC-visuals-update.js"></script>
 
 <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
 <!-- <script src = "/js/roc2.js"></script> -->

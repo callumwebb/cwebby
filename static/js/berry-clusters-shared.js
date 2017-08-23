@@ -61,7 +61,7 @@ function berryClusterPlot() {
 
       // set up force simulation
       // console.log(data.state);
-      var simulation = d3.forceSimulation(data.state)
+      var simulation = d3.forceSimulation(localData)
         .velocityDecay(0.2)
         .force("collide", d3.forceCollide(berrySize + 3).iterations(2))
         .force('x', forceX)
@@ -74,12 +74,11 @@ function berryClusterPlot() {
         d3.event.subject.fx = d3.event.subject.x;
         d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
-        // data.state = localData;
+        data.state = localData;
         // data.updatePlots()
         // data.set(data.get())
 
-        update();
-        data.updatePlots();
+        // update();
       }
       function dragged(d) {
         d3.event.subject.fx = d3.event.x;
@@ -88,7 +87,7 @@ function berryClusterPlot() {
       function dragended(d) {
         d3.event.subject.fx = null;
         d3.event.subject.fy = null;
-        // data.updatePlots()
+        data.updatePlots()
       }
       function dragsubject() {
         return simulation.find(d3.event.x, d3.event.y);
@@ -102,28 +101,24 @@ function berryClusterPlot() {
       // for simplicity of coordinates, append a group for the nodes where (0, 0) is in the centre
       // var nodeGroup = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
       //     node = nodeGroup.append("g").selectAll(".node").data(data); // bind nodes to our data
-      var node = svg.select("g.nodes").selectAll(".node").data(data.state);
+      var node = svg.select("g.nodes").selectAll(".node").data(localData);
 
       // apply general update pattern to nodes
       // node = node.data(data.state);
-      update = function() {
-        node.exit().remove();
-        node = node.enter().append("g")
-          .attr("class", "node")
-          .call(d3.drag()
-            .subject(dragsubject)
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended))
-          .merge(node);
+      node.exit().remove();
+      node = node.enter().append("g")
+        .attr("class", "node")
+        .call(d3.drag()
+          .subject(dragsubject)
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended))
+        .merge(node);
 
-        node.selectAll("circle").remove();
-        node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
-        node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
-        simulation.nodes(data.state);
-      }
+      node.selectAll("circle").remove();
+      node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
+      node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
 
-      update()
       // update and restart the simulation
       // simulation.nodes(data.state);
       // simulation.alpha(1).restart();
@@ -147,10 +142,6 @@ function berryClusterPlot() {
     if (!arguments.length) return berrySize;
     berrySize = value;
     return plot;
-  }
-
-  plot.update = function() {
-
   }
 
   return plot;
