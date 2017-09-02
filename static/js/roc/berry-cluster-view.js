@@ -22,16 +22,11 @@ function berryClusterPlot() {
 
       // Otherwise, create the skeletal chart.
       if (svg.empty()) {
-        console.log("creating skeleton")
         svg = d3.select(this).append("svg")
           .attr("viewBox", 0 + " " + 0 + " " + (width + margin.left + margin.right) + " " + (height + margin.bottom + margin.top))
           .attr("preserveAspectRatio", "xMidYMid meet")
           .append("g")  // this group exists purely to respect the margins
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        // // for simplicity of coordinates, append a group for the nodes where (0, 0) is in the centre
-        // var nodeGroup = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
-        //     node = nodeGroup.append("g").selectAll(".node").data(data); // bind nodes to our data
 
         // text labels
         svg.append("text")
@@ -53,7 +48,7 @@ function berryClusterPlot() {
           // .append("g") // a single node
 
         // create the cluster centroids
-        clusters = [{x: (-width / 4), y: 0}, {x: (width / 4), y : 0}];
+        clusters = [{x: (-width / 4.0), y: 0}, {x: (width / 4.0), y : 0}];
       }
 
       // force functions for layout of berries
@@ -64,7 +59,7 @@ function berryClusterPlot() {
       // console.log(data.state);
       var simulation = d3.forceSimulation(localData)
         .velocityDecay(0.2)
-        .force("collide", d3.forceCollide(berrySize + 3).iterations(2))
+        .force("collide", d3.forceCollide(berrySize + 3).iterations(3))
         .force('x', forceX)
         .force('y', forceY)
         .alphaTarget(1)
@@ -92,11 +87,7 @@ function berryClusterPlot() {
 
       // simulation tick function
       function ticked() {
-        node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"})
-        if (data.updateFlag) {
-          update()
-          data.flagUpdate();
-        }
+        node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"});
       }
 
       // for simplicity of coordinates, append a group for the nodes where (0, 0) is in the centre
@@ -126,6 +117,7 @@ function berryClusterPlot() {
       }
 
       update();
+      data.register(update);
       // update and restart the simulation
       // simulation.nodes(data.state);
       // simulation.alpha(1).restart();

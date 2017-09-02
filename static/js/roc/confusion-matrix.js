@@ -7,7 +7,7 @@ function confusionMatrix() {
       height = 150;
 
   function matrix(selection) {
-    selection.each(function(data) { 
+    selection.each(function(data) {
       data = data.state
 
       // From the data, calculate the matrix contents
@@ -53,7 +53,7 @@ function confusionMatrix() {
           .attr("y1", height / 2)
           .attr("x2", width)
           .attr("y2", height / 2)
-          .attr("stroke", "black")  
+          .attr("stroke", "black")
           .attr("stroke-dasharray", "5, 5")
 
         // Predicted labels
@@ -129,5 +129,3 @@ function confusionMatrix() {
 
   return matrix;
 }
-
-

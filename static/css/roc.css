@@ -1,0 +1,25 @@
+
+circle.raspberry {
+  fill: #d20000;
+  stroke: #500000;
+  stroke-width: 3px;
+}
+circle.blueberry {
+  fill: #0059de;
+  stroke: #002050;
+  stroke-width: 3px;
+}
+circle.pos {
+  fill: none;
+  stroke: #d20000;
+  stroke-opacity: 0.75;
+  stroke-width: 5px;
+  stroke-dasharray: 10;
+}
+circle.neg {
+  fill: none;
+  stroke: #0059de;
+  stroke-opacity: 0.75;
+  stroke-width: 5px;
+  stroke-dasharray: 10;
+}
