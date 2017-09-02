@@ -54,7 +54,7 @@ We use the following terminology to refer to each of the possibilities:
 A confusion matrix is essentially a way to visualise the correctness of a set of labels by counting the numbers in each category.
 Here's an example; it's interactive, so click on the berries underneath the matrix to see how this works:
 
-<figure class = "berryMatrix" style = "max-width:250px"></figure>
+<figure class = "berryMatrix" style = "max-width:240px"></figure>
 <hr/>
 <figure class = "berryClasses" style = "max-width:400px"></figure>
 
@@ -69,13 +69,11 @@ There are some standard terms that describe different ratios of values from the 
 
 ### Points in the ROC space
 
-Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise one part of the confusion matrix. Below we're showing the current arrangement of berry predictions from before.
+Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise one part of the confusion matrix. Below we're showing the true and false positive rate of the current arrangement of labels from before as a point on the plot.
 
+<figure class = "rocPoint" style = "max-width:240px"></figure>
 <figure class = "berryClasses" style = "max-width:320px"></figure>
 
-< consider adding a smaller version of the force layout so that they can be side by side >
-
-< ROC space with point and grid >
 
 Play around with the berries again and try move the point to each corner of the plot.
 Some key ideas to think about:
@@ -233,4 +231,5 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 <script src = "/js/d3.js"></script>
 <script src = "/js/roc/confusion-matrix.js"></script>
 <script src = "/js/roc/berry-cluster-view.js"></script>
+<script src = "/js/roc/roc-point.js"></script>
 <script src = "/js/roc/roc-visuals.js"></script>

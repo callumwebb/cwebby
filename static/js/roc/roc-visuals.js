@@ -26,7 +26,7 @@ var berryModel =  {
 }
 
 var berryPlot = berryClusterPlot(); // Interactive berry plot
-var confusionMatrix = confusionMatrix(); // Confusion matrix visual
+
 
 // Place our iteractive plot wherever we have berryClasses figures
 d3.selectAll("figure.berryClasses")
@@ -35,6 +35,7 @@ d3.selectAll("figure.berryClasses")
 
 // Place our confusion matrix at the berryMatrix figure, and provide a
 // callback for the berry model to keep it updated
+var confusionMatrix = confusionMatrix(); // Confusion matrix visual
 function updateMatrix() {
   d3.select("figure.berryMatrix")
     .datum(berryModel)
@@ -42,6 +43,17 @@ function updateMatrix() {
 }
 berryModel.register(updateMatrix);
 updateMatrix();
+
+// // The ROC single point plot corresponds to the rocPoint figure
+var rocPointPlot = rocPointPlot();
+function updateROCPoint() {
+  d3.select("figure.rocPoint")
+    .datum(berryModel)
+    .call(rocPointPlot);
+}
+berryModel.register(updateROCPoint);
+updateROCPoint();
+
 
 // Static berries, draw once with d3
 var berrySize = 18;

@@ -45,7 +45,6 @@ function berryClusterPlot() {
         svg.append("g")
           .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
           .attr("class", "nodes")
-          // .append("g") // a single node
 
         // create the cluster centroids
         clusters = [{x: (-width / 4.0), y: 0}, {x: (width / 4.0), y : 0}];
@@ -56,13 +55,12 @@ function berryClusterPlot() {
       var forceY = d3.forceY((d) => clusters[d.label == 1 ? 1 : 0].y).strength(0.04);
 
       // set up force simulation
-      // console.log(data.state);
       var simulation = d3.forceSimulation(localData)
         .velocityDecay(0.2)
         .force("collide", d3.forceCollide(berrySize + 3).iterations(3))
         .force('x', forceX)
         .force('y', forceY)
-        .alphaTarget(1)
+        .alphaTarget(0.9)
         .on("tick", ticked)
 
       // simulation interaction functions
@@ -90,13 +88,9 @@ function berryClusterPlot() {
         node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"});
       }
 
-      // for simplicity of coordinates, append a group for the nodes where (0, 0) is in the centre
-      // var nodeGroup = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")"),
-      //     node = nodeGroup.append("g").selectAll(".node").data(data); // bind nodes to our data
       var node = svg.select("g.nodes").selectAll(".node").data(localData);
 
       // apply general update pattern to nodes
-      // node = node.data(data.state);
       function update() {
         node = node.data(localData);
 
@@ -114,14 +108,11 @@ function berryClusterPlot() {
         node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
         node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
         simulation.nodes(localData);
+        simulation.restart();
       }
 
       update();
       data.register(update);
-      // update and restart the simulation
-      // simulation.nodes(data.state);
-      // simulation.alpha(1).restart();
-
     })
   }
 

@@ -26,6 +26,11 @@ function confusionMatrix() {
 
       data = d3.entries({"tp" : tp, "fp" : fp, "tn" : tn, "fn" : fn})
 
+      // update corresponding sens/spec/prec labels in text
+      d3.select("#sensitivity").text(tp + "/" + (tp + fn));
+      d3.select("#specificity").text(tn + "/" + (tn + fp));
+      d3.select("#precision").text(tp + "/" + (tp + fp));
+
       var svg = d3.select(this).selectAll("svg > g")
       if (svg.empty()) {
         svg = d3.select(this).append("svg")
