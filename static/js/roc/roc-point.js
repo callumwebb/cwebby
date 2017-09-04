@@ -1,7 +1,6 @@
 function rocPointPlot() {
 
-  // margin around confusion matrix
-  var margin = {top:10, right:10, bottom:30, left:30},
+  var margin = {top:10, right:10, bottom:50, left:60},
       width = 200;
       height = 200;
 
@@ -9,8 +8,12 @@ function rocPointPlot() {
     .range([0, width]);
   var y = d3.scaleLinear().domain([0, 1])
     .range([height, 0])
-  var xAxis = d3.axisBottom(x);
-  var yAxis = d3.axisLeft(y);
+  var xAxis = d3.axisBottom(x)
+    .tickValues([0, 0.25, 0.5, 0.75, 1.0])
+    .tickFormat(d3.format(".2f"));
+  var yAxis = d3.axisLeft(y)
+    .tickValues([0, 0.25, 0.5, 0.75, 1.0])
+    .tickFormat(d3.format(".2f"));
 
   function plot(selection) {
     selection.each(function(data) {
@@ -29,6 +32,59 @@ function rocPointPlot() {
           .call(xAxis);
         svg.append("g")
           .call(yAxis);
+
+        // text label for the x axis
+        svg.append("text")
+          .attr("transform",
+                "translate(" + (width/2) + " ," +
+                               (height + margin.top + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("false positive rate");
+
+        // text label for the y axis
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 0 - margin.left)
+          .attr("x",0 - (height / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("true positive rate");
+
+        // add the X gridlines
+        function make_x_gridlines() {
+          return d3.axisBottom(x)
+            .tickValues([0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0])
+        }
+        // gridlines in y axis function
+        function make_y_gridlines() {
+          return d3.axisLeft(y)
+            .tickValues([0, 0.25, 0.5, 0.75, 1.0])
+        }
+
+        // add X gridlines
+        svg.append("g")
+          .attr("class", "grid")
+          .attr("transform", "translate(0," + height + ")")
+          .call(make_x_gridlines()
+              .tickSize(-height)
+              .tickFormat("")
+          )
+
+        // add the Y gridlines
+        svg.append("g")
+          .attr("class", "grid")
+          .call(make_y_gridlines()
+              .tickSize(-width)
+              .tickFormat("")
+          )
+
+        // add diagonal line
+        svg.append("line")
+          .attr("x1", x(0))
+          .attr("y1", y(0))
+          .attr("x2", x(1))
+          .attr("y2", y(1))
+          .attr("class", "diagonal");
       }
 
       var tp = 0;

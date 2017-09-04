@@ -14,7 +14,7 @@ googleAnalytics = ""
   description = "Describe your website"
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
-    "Engineer and computer scientist with a passion for data and sharing knowledge.",
+    "Data science, engineering, knowledge sharing",
     "Currently based in Perth, Australia."
   ]
   # Contact page

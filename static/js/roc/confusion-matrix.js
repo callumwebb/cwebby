@@ -3,8 +3,8 @@ function confusionMatrix() {
 
   // margin around confusion matrix
   var margin = {top:50, right:10, bottom:10, left:60},
-      width = 170;
-      height = 150;
+      width = 150;
+      height = 130;
 
   function matrix(selection) {
     selection.each(function(data) {

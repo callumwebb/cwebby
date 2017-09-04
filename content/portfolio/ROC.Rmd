@@ -69,11 +69,12 @@ There are some standard terms that describe different ratios of values from the 
 
 ### Points in the ROC space
 
-Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise one part of the confusion matrix. Below we're showing the true and false positive rate of the current arrangement of labels from before as a point on the plot.
+Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise two aspects of the confusion matrix. 
+
+Below we're showing the current state of the labels as a point in the ROC space:
 
 <figure class = "rocPoint" style = "max-width:240px"></figure>
 <figure class = "berryClasses" style = "max-width:320px"></figure>
-
 
 Play around with the berries again and try move the point to each corner of the plot.
 Some key ideas to think about:
@@ -86,7 +87,7 @@ And equally important, but a bit trickier:
 
 - A set of predictions that lies anywhere on the diagonal line is doing no better at seperating berries than random guessing.
 - Any point that lies below the diagonal line is doing worse than guessing, but can produce useful results by simply reversing the predicted labels; this causes the point to reflect about the diagonal line.
-- The point can only occupy positions on an equally spaced grid, because when we have a finite number of berries, the true and false positive rates are always a fraction of integers with a fixed denominator.
+- The point can only occupy fixed positions a grid, because when we have a finite number of berries, the true and false positive rates are always a fraction of integers with a fixed denominator.
 
 
 
@@ -94,7 +95,7 @@ And equally important, but a bit trickier:
 
 So far we've discussed our classifier's predictions in categorical terms -- a berry is either a blueberry or a raspberry.
 Most algorithms that can be used for classification actually give you more information than just a label.
-For example, logistic regression, support vector machines, and random forests will all output a continuous value which is *related* to the probability that the input belongs to a certain class.
+For example, logistic regression will output a continuous value which is *related* to the probability that the input belongs to a certain class.
 (I say *related to probability* with care because the raw output is not necessarily a true probability, more on this later).
 
 Applied to our example, our classifier may output a value of "0.1" when it's quite sure that it's looking at a blueberry, and a value of "0.99" when it's nearly certain it has a raspberry.
@@ -102,7 +103,7 @@ If we applied our algorithm to a sample of berries, we might get a set of output
 
 < figure that shows how our classifier places berries on a continuous scale >
 
-So how can we take this continuous output and turn it into categorical predictions?
+So how can we make categorical decisions based on continuous data like this?
 One simplistic approach is to apply a threshold or cutoff.
 Predictions below the cutoff are labelled negative, and predictions above are labelled positive.
 
@@ -121,16 +122,14 @@ The ROC curve is a visualisation of this trade-off and the performance of the cl
 < same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line >
 
 
-### Using base R
+### Doing it yourself
 
-There are packages that can give us the ROC plot of a classifier for free, but it's useful to think about how to do it yourself.
-
-
+There are packages that can give us the ROC plot of a classifier for free, but it's useful to think about how you might do it yourself.
 
 I've seen two algorithms for drawing the curve -- they both work, but I think one is clearly better.
 We'll focus on generating the coordinates of points that make up the ROC curve, and then use ggplot2 at the end to actually draw it.
 
-To demonstrate, we'll use R and take an excursion from the muffin machine. Here 1 is used for positives and 0 for negatives:
+To demonstrate, suppose our muffin machine generates the following output when presented with four raspberries and three blueberries, where 1 indicates a raspberry (positive) and 0 indicates a blueberry (negative):
 
 ```{r, echo = FALSE, message = FALSE}
 suppressMessages(library(dplyr))
