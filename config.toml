@@ -14,7 +14,7 @@ googleAnalytics = ""
   description = "Describe your website"
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
-    "Data science, engineering, knowledge sharing",
+    "Data science, engineering, knowledge sharing.",
     "Currently based in Perth, Australia."
   ]
   # Contact page
@@ -29,7 +29,7 @@ googleAnalytics = ""
      # - send a dummy email yourself to confirm your account
      # - click the confirm link in the email from www.formspree.io
      # - you're done. Happy mailing!
-  email = "you@yoursite.com"
+  email = "cwebbysite@gmail.com"
 
   # Nav links in the side bar
   [[params.navlinks]]
@@ -47,7 +47,7 @@ googleAnalytics = ""
   [params.social]
   facebook      = ""
   #googleplus    = "full profile url in googleplus"
-  #email         = "email@example.com"
+  #email         = ""
   twitter       = "https://twitter.com/Webbatron"
   linkedin      = "https://linkedin.com/in/callumwebb"
   #stackoverflow = "full profile url in stackoverflow"

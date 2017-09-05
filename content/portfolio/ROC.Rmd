@@ -1,9 +1,9 @@
 ---
-image: "img/portfolio/gravity-paper.jpg"
+image: "img/portfolio/roc-1.png"
 showonlyimage: false
 date: "2016-11-05T19:44:32+05:30"
-title: "ROC Curves"
-description: "A short description perhaps?"
+title: "ROC Curves Part 1"
+description: "A delicious introduction to ROC curves with muffins."
 type: "portfolio"
 draft: false
 ---
