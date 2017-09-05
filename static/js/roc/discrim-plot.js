@@ -42,7 +42,7 @@ function discrimPlot() {
             .attr("class", "track-overlay")
             .call(d3.drag()
               .on("start.interrupt", function() {slider.interrupt();})
-              .on("start drag", function() {slide(x.invert(d3.event.x));}))
+              .on("end drag", function() {slide(x.invert(d3.event.x));}))
 
         var handle = slider.insert("circle", ".track-overlay")
             .attr("class", "handle")
@@ -53,13 +53,16 @@ function discrimPlot() {
       function slide(threshold) {
         // this.threshold = threshold;
         handle.attr("cx", x(threshold));
-        update(threshold);
+        data.threshold = [threshold];
+        data.updateViews();
+        update();
       }
 
       // Provide an update function to draw the threshold and resulting labels, as these will
       // change when we slide
-      function update(threshold) {
-        var thresholdLine = svg.selectAll(".thresholdLine").data([threshold])
+      function update() {
+        handle.attr("cx", x(data.threshold));
+        var thresholdLine = svg.selectAll(".thresholdLine").data(data.threshold)
         thresholdLine.exit().remove()
         thresholdLine.enter().append("line")
           .attr("class", "thresholdLine")
@@ -70,15 +73,15 @@ function discrimPlot() {
           .attr("y2", height / 2)
           .attr("stroke", "black")
 
-        var nodeLabels = svg.selectAll(".nodeLabel").data(data)
+        var nodeLabels = svg.selectAll(".nodeLabel").data(data.state)
         nodeLabels.exit().remove;
         nodeLabels.enter().append("circle").merge(nodeLabels)
-          .attr("class", function(d) { return d.value >= threshold ? "nodeLabel pos" : "nodeLabel neg";} )
+          .attr("class", function(d) { return d.value >= data.threshold ? "nodeLabel pos" : "nodeLabel neg";} )
           .attr("r", 12)
           .attr("cx", function(d) { return x(d.value); })
           .attr("cy", height / 2 - 20);
 
-        var nodes = svg.selectAll(".node").data(data);
+        var nodes = svg.selectAll(".node").data(data.state);
         nodes.exit().remove()
         var node = nodes.enter().append("circle")
           // .attr("class", ("node " + function(d) {return d.type == 1 ? "raspberry" : "blueberry";}))
@@ -87,7 +90,8 @@ function discrimPlot() {
           .attr("cx", function(d) { return x(d.value); })
           .attr("cy", height / 2 - 20);
       }
-      update(0.5);
+      data.register(update);
+      update();
     })
   }
 

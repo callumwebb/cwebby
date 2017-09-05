@@ -27,18 +27,30 @@ var berryModel =  {
 
 // Static dummy output of a classification algorithm before the predicted
 // probabilities are made dichotomous
-var exampleOutput = [{"type" : 1, "value" : 0.98},
-                     {"type" : 0, "value" : 0.87},
-                     {"type" : 1, "value" : 0.82},
-                     {"type" : 1, "value" : 0.72},
-                     {"type" : 0, "value" : 0.66},
-                     {"type" : 1, "value" : 0.53},
-                     {"type" : 1, "value" : 0.42},
-                     {"type" : 0, "value" : 0.30},
-                     {"type" : 1, "value" : 0.25},
-                     {"type" : 0, "value" : 0.21},
-                     {"type" : 0, "value" : 0.1},
-                     {"type" : 0, "value" : 0.01}];
+var exampleOutput = {
+  state : [{"type" : 1, "value" : 0.98},
+           {"type" : 0, "value" : 0.87},
+           {"type" : 1, "value" : 0.82},
+           {"type" : 1, "value" : 0.72},
+           {"type" : 0, "value" : 0.66},
+           {"type" : 1, "value" : 0.53},
+           {"type" : 1, "value" : 0.42},
+           {"type" : 0, "value" : 0.30},
+           {"type" : 1, "value" : 0.25},
+           {"type" : 0, "value" : 0.21},
+           {"type" : 0, "value" : 0.1},
+           {"type" : 0, "value" : 0.01}],
+  threshold : [0.5],
+  views: [],
+  register : function(callback) {
+    this.views.push(callback)
+  },
+  updateViews : function() {
+    for (i = 0; i < this.views.length; i++) {
+      this.views[i]();
+    }
+  }
+}
 
 var berryPlot = berryClusterPlot(); // Interactive berry plot
 
@@ -77,9 +89,18 @@ d3.select("figure.berryContPop")
 
 // discrimination threshold interactive plot
 var discrimPlot = discrimPlot();
-d3.select("figure.discrimPlot")
+d3.selectAll("figure.discrimPlot")
   .datum(exampleOutput)
   .call(discrimPlot)
+
+var rocPointCurvePlot = rocPointCurvePlot();
+function updateRocPointCurvePlot() {
+  d3.select("figure.rocPointCurvePlot")
+    .datum(exampleOutput)
+    .call(rocPointCurvePlot)
+}
+exampleOutput.register(updateRocPointCurvePlot);
+updateRocPointCurvePlot();
 
 // Static berries, draw once with d3
 var berrySize = 16;

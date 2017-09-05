@@ -121,7 +121,9 @@ To increase the true positive rate, you could set a low threshold, but this usua
 
 The ROC curve is a visualisation of this trade-off and the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot. Notice how every threshold value corresponds to a point on the curve.
 
-< same threshold slider as before, but this time show the ROC plot and the current threshold as a point along the stepped line >
+<figure class = "rocPointCurvePlot" style = "max-width:270px"></figure>
+<br/>
+<figure class = "discrimPlot" style = "max-width:410px"></figure>
 
 
 ### Doing it yourself
@@ -233,6 +235,7 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 <script src = "/js/roc/confusion-matrix.js"></script>
 <script src = "/js/roc/berry-cluster-view.js"></script>
 <script src = "/js/roc/roc-point.js"></script>
+<script src = "/js/roc/roc-point-curve.js"></script>
 <script src = "/js/roc/continuous-output-plot.js"></script>
 <script src = "/js/roc/discrim-plot.js"></script>
 <script src = "/js/roc/roc-visuals.js"></script>

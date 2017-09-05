@@ -27,7 +27,7 @@ function continuousOutputPlot() {
           .call(xAxis);
       }
 
-      var nodes = svg.selectAll(".node").data(data);
+      var nodes = svg.selectAll(".node").data(data.state);
 
       nodes.exit()
         .remove()
