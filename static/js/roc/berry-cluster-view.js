@@ -5,7 +5,7 @@ function berryClusterPlot() {
        width = 390  ,  // default width
        height = 170;  // default height
 
-  var berrySize = 18 // default berry (outermost) diameter
+  var berrySize = 16 // default berry (outermost) diameter
 
   var localData = null; // This view's local copy of the underlying data. We need to take a copy because
                         // the force simulation adds properties to the data, which would result in conflicts
@@ -105,8 +105,8 @@ function berryClusterPlot() {
           .merge(node);
 
         node.selectAll("circle").remove();
-        node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
         node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
+        node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
         simulation.nodes(localData);
         simulation.restart();
       }

@@ -9,15 +9,22 @@ circle.blueberry {
   stroke: #002050;
   stroke-width: 3px;
 }
+circle.unlabelled {
+  fill: #EEEEEE;
+  stroke: #666666;
+  stroke-width: 3px;
+}
 circle.pos {
-  fill: none;
+  fill: white;
+  fill-opacity: 0;
   stroke: #d20000;
   stroke-opacity: 0.75;
   stroke-width: 5px;
   stroke-dasharray: 10;
 }
 circle.neg {
-  fill: none;
+  fill: white;
+  fill-opacity: 0;
   stroke: #0059de;
   stroke-opacity: 0.75;
   stroke-width: 5px;
@@ -36,13 +43,56 @@ circle.neg {
   shape-rendering: crispEdges;
 }
 
-.diagonal {
+.grid path {
+  stroke-width: 0;
+}
+
+line.diagonal {
   stroke-width: 2;
   stroke-opacity: 0.8;
   stroke: grey;
   stroke-dasharray: 5,5;
 }
 
-.grid path {
-  stroke-width: 0;
+line.span {
+  stroke-width: 2;
+  stroke-opacity: 1;
+  stroke: grey;
+  stroke-dasharray: 5,5;
+}
+
+#arrowhead {
+  fill-opacity: 1;
+  fill: grey;
+}
+
+/*Slider styling*/
+.track,
+.track-inset,
+.track-overlay {
+  stroke-linecap: round;
+}
+
+.track {
+  stroke: #222;
+  stroke-opacity: 0.3;
+  stroke-width: 8px;
+}
+
+.track-inset {
+  stroke: #eee;
+  stroke-width: 6px;
+}
+
+.track-overlay {
+  pointer-events: stroke;
+  stroke-width: 50px;
+  cursor: crosshair;
+}
+
+.handle {
+  fill: #fff;
+  stroke: #000;
+  stroke-opacity: 0.5;
+  stroke-width: 1.25px;
 }

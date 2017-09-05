@@ -84,7 +84,7 @@ function rocPointPlot() {
           .attr("y1", y(0))
           .attr("x2", x(1))
           .attr("y2", y(1))
-          .attr("class", "diagonal");
+          .attr("class", "diagonal")
       }
 
       var tp = 0;
