@@ -56,8 +56,9 @@ function berryClusterPlot() {
 
       // set up force simulation
       var simulation = d3.forceSimulation(localData)
-        .velocityDecay(0.05)
+        .velocityDecay(0.07)
         .alphaDecay(0.02)
+        .alphaTarget(0.001)
         .force("collide", d3.forceCollide(berrySize + 3).iterations(3))
         .force('x', forceX)
         .force('y', forceY)
@@ -65,12 +66,11 @@ function berryClusterPlot() {
 
       // simulation interaction functions
       function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaDecay(0.1).alphaTarget(1).restart();
+        if (!d3.event.active) data.dragStart()
         d3.event.subject.fx = d3.event.subject.x;
         d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
         data.updateViews();
-        update();
       }
       function dragged(d) {
         d3.event.subject.fx = d3.event.x;
@@ -79,7 +79,7 @@ function berryClusterPlot() {
       function dragended(d) {
         d3.event.subject.fx = null;
         d3.event.subject.fy = null;
-        if (!d3.event.active) simulation.alphaDecay(0.02).alphaTarget(0.001);
+        if (!d3.event.active) data.dragEnd();
       }
       function dragsubject() {
         return simulation.find(d3.event.x, d3.event.y);
@@ -113,8 +113,18 @@ function berryClusterPlot() {
         simulation.restart();
       }
 
+      function reheat() {
+        simulation.alphaDecay(0.1).alphaTarget(0.7).restart();
+      }
+
+      function cool() {
+        simulation.alphaDecay(0.02).alphaTarget(0.001);
+      }
+
       update();
       data.register(update);
+      data.registerDragStart(reheat);
+      data.registerDragEnd(cool);
     })
   }
 
