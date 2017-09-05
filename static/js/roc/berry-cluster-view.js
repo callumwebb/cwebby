@@ -51,20 +51,21 @@ function berryClusterPlot() {
       }
 
       // force functions for layout of berries
-      var forceX = d3.forceX((d) => clusters[d.label == 1 ? 1 : 0].x).strength(0.04);
-      var forceY = d3.forceY((d) => clusters[d.label == 1 ? 1 : 0].y).strength(0.04);
+      var forceX = d3.forceX((d) => clusters[d.label == 1 ? 1 : 0].x).strength(0.06);
+      var forceY = d3.forceY((d) => clusters[d.label == 1 ? 1 : 0].y).strength(0.06);
 
       // set up force simulation
       var simulation = d3.forceSimulation(localData)
-        .velocityDecay(0.2)
+        .velocityDecay(0.05)
+        .alphaDecay(0.02)
         .force("collide", d3.forceCollide(berrySize + 3).iterations(3))
         .force('x', forceX)
         .force('y', forceY)
-        .alphaTarget(0.9)
         .on("tick", ticked)
 
       // simulation interaction functions
       function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaDecay(0.1).alphaTarget(1).restart();
         d3.event.subject.fx = d3.event.subject.x;
         d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
@@ -78,6 +79,7 @@ function berryClusterPlot() {
       function dragended(d) {
         d3.event.subject.fx = null;
         d3.event.subject.fy = null;
+        if (!d3.event.active) simulation.alphaDecay(0.02).alphaTarget(0.001);
       }
       function dragsubject() {
         return simulation.find(d3.event.x, d3.event.y);

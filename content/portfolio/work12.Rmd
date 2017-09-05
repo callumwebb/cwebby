@@ -42,7 +42,7 @@ Hmmm
 mtcars
 ```
 
-well 
+well
 
 ```{r}
 1 + 1
@@ -210,7 +210,7 @@ foo %union% bar
 `"test"`
 
 
-##    user  system elapsed 
+##    user  system elapsed
 ##    0.50    0.05    0.55
 
 
@@ -221,3 +221,27 @@ foo %union% bar
 
 ###### Heading 6
 woo woo
+
+
+
+## Area under the curve (AUC)
+
+### Discrimination performance
+
+- introduce slider! Watch ROC curve change.
+- emphasise how only *ordering* is important.
+
+### Discrimination vs. calibration
+
+- show extreme examples with all berries bunched up at one end of the scale.
+- consider animation where berries jiggle arround, but don't swap places.
+- Frank Harrel quote
+
+## Optimal decision theory
+
+- Mostly provide links to resources
+
+
+## Closing
+
+< visualisation that ties everything together >

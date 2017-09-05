@@ -10,24 +10,21 @@ draft: false
 
 <link rel="stylesheet" href="/css/roc.css" />
 
-In this post we'll explore what [receiver operating characteristic (ROC)](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) curves are, how they're constructed, and what they're useful for, along with some important limitations.
+In this post we'll explore what [receiver operating characteristic (ROC)](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) curves are, how they're constructed, and what they're useful for.
 
 ## The muffin machine
 
 Imagine we've built a machine that bakes two kinds of muffins, blueberry and raspberry. The only thing we need to do is feed the machine raw ingredients, and within thirty minutes, fresh muffins pop out the other end.
 
-Suppose that we buy our berries in bulk and that they come mixed together. Because we're lazy (and hungry), we want the machine to seperate the rapsberries from the blueberries for us. This is an example of a [classification problem](https://en.wikipedia.org/wiki/Statistical_classification).
-
+Suppose that we buy our berries in bulk and that they come mixed together. Because we're lazy (and hungry), we want the machine to separate the raspberries from the blueberries for us. This is an example of a [classification problem](https://en.wikipedia.org/wiki/Statistical_classification).
 
 <img src="/img/roc/muffin-machine.png" style = "max-width:300px;width:100%;"/>
 
-
 After developing a classification algorithm that the machine will use to sort the mixed berries, we'd like to estimate how well it's going to perform. An ROC curve is one tool that can help us do this. Here's an example curve which we'll unpack below.
 
-<figure class="roc-example" style = "max-width:330px;width:100%"></figure>
+<figure class="rocExample" style = "max-width:270px;width:100%"></figure>
 
-
-There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't do.
+There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't tell us. In this post we'll focus on how the curve is drawn and what it means, a later post will go into more about its limitations.
 
 ## Confusion matrix
 
@@ -83,12 +80,11 @@ Some key ideas to think about:
 - The lower left corner corresponds to labelling everything "negative".
 - The upper left corner corresponds to perfect prediction.
 
-And equally important, but a bit trickier:
+And equally insightful, but a bit trickier:
 
-- A set of predictions that lies anywhere on the diagonal line is doing no better at seperating berries than random guessing. (This is why you will often see it drawn - it's a useful reference).
+- A set of predictions that lies anywhere on the diagonal line is doing no better at separating berries than random guessing. (This is why you will often see it drawn - it's a useful reference).
 - Any point that lies below the diagonal line is doing worse than guessing, but can produce useful results by simply reversing the predicted labels; this causes the point to reflect about the diagonal line.
 - The point can only occupy fixed positions a grid, because when we have a finite number of berries, the true and false positive rates are always a fraction of integers with a fixed denominator.
-
 
 
 ### Discrimination threshold
@@ -100,7 +96,7 @@ For example, logistic regression will output a continuous value which is *relate
 
 <figure class = "berryCont" style = "max-width:410px"></figure>
 
-Applied to our example, our classifier may output a value of 0.99 when it's nearly certain it's looking at a raspberry, and a value of 0.1 when it's quite sure it has something that is not a raspberry (i.e. blueberry). If we applied our algorithm to a sample of twelve berries, six of each type, we might get a set of outputs that look like this:
+Applied to our example, our classifier may output a value of 0.99 when it's nearly certain it's looking at a raspberry, and a value of 0.1 when it's quite sure it has something that is not a raspberry (i.e. blueberry). If we applied our algorithm to the same set of berries we've been working with so far, (4 raspberries, 8 blueberries), we could get a set of outputs that look like this:
 
 <figure class = "berryContPop" style = "max-width:410px"></figure>
 
@@ -110,65 +106,78 @@ Predictions below the cutoff are labelled negative, and predictions above are la
 
 <figure class = "discrimPlot" style = "max-width:410px"></figure>
 
-Move the slider above to adjust the threshold and observe the results. Notice that if you want to correctly label all of the raspberries, you'll have to put up with three false positives. And if you need to ensure you have no false positives, then you must accept five false negatives. This is a reality of just about all real-world data.
+Move the slider above to adjust the threshold and observe the results. Notice that if you want to correctly label all of the raspberries, you'll have to put up with five false positives. And if you need to ensure you have no false positives, then you must accept three false negatives. This trade-off is a reality of just about all real-world data.
 
-As an aside, while setting a threshold is common practice, it can be a naive approach that doesn't make full use of the available information. You might also have not considered applying threshold values other than 0.5 or 50%. An alternative will be briefly discussed later.
+As an aside, while setting a threshold is common practice, in some settings it would be considered a naive approach built upon rigid assumptions that doesn't make full use of the available information. You might not have considered the possibility of a threshold other than 0.5 or 50%, or even that the problem you're trying to solve is really risk estimation at heart instead of binary classification. This is an important idea that ties into optimal decision theory, which I hope to write a part II about!
 
 ## Drawing the ROC curve
 
 If you've played around with the interactive threshold above, hopefully you can see the trade-offs that exist in classification.
 To increase the true positive rate, you could set a low threshold, but this usually comes at a cost of more false positives.
 
-The ROC curve is a visualisation of this trade-off and the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot. Notice how every threshold value corresponds to a point on the curve.
+The ROC curve is a visualisation of this balancing act and plots the performance of the classifier across all thresholds. Here's the same threshold slider, but this time we show the ROC plot. Notice how every threshold value corresponds to a point on the curve.
 
 <figure class = "rocPointCurvePlot" style = "max-width:270px"></figure>
-<br/>
 <figure class = "discrimPlot" style = "max-width:410px"></figure>
 
+(We keep using the word curve, even though it's made up of straight lines! You can hopefully see how if we kept adding more and more berries to our population, the plot would begin to look more like a gentle curve. The bigger your population, the better you will be able to estimate the classifier's performance.)
 
 ### Doing it yourself
 
 There are packages that can give us the ROC plot of a classifier for free, but it's useful to think about how you might do it yourself.
 
-I've seen two algorithms for drawing the curve -- they both work, but I think one is clearly better.
-We'll focus on generating the coordinates of points that make up the ROC curve, and then use ggplot2 at the end to actually draw it.
+I've seen two algorithms for drawing the curve -- they both work, but I think one is better.
+We'll focus on the algorithm for generating the coordinates of points that make up the ROC curve, and then use [ggplot2](http://ggplot2.org/) at the end to actually draw it.
 
-To demonstrate, suppose our muffin machine generates the following output when presented with four raspberries and three blueberries, where 1 indicates a raspberry (positive) and 0 indicates a blueberry (negative):
+To demonstrate, here's the underlying data behind the berries arranged on the sliding scale from before.
 
 ```{r, echo = FALSE, message = FALSE}
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
 ```
 
-
 ```{r}
-# Let's make up some dummy predictions
-pr <- tibble::tribble(
+# The tibble package helps us write dataframes in a human-friendly way.
+ps <- tibble::tribble(
     ~prediction, ~actual,
-    0.9,           1,
-    0.84,          1,
-    0.7,           0,
-    0.55,          1,
-    0.24,          0,
-    0.11,          0,
-    0.08,          1
+    0.98,        1,
+    0.87,        0,
+    0.82,        1,
+    0.72,        1,
+    0.66,        0,
+    0.53,        0,
+    0.42,        0,
+    0.30,        0,
+    0.25,        1,
+    0.21,        0,
+    0.10,        0,
+    0.01,        0
   )
 ```
 
-The inferior algorithm usually looks something like this:
+The algorithm I don't like as much usually involves this type of strategy:
 
-```{r, fig.width = 3, fig.height = 3}
-step <- 0.01
+* Initialise the threshold to be zero or one.
+* Increment or decrement the threshold by a small amount.
+* Calculate the resulting true and false positive rate.
+* Store result.
+
+In R, it might look like this:
+
+```{r, fig.width = 2.5, fig.height = 2.5}
+step <- 0.01 # Our small step
+
+# Pre-allocate data structure to hold ROC plot coordinates
 rocPoints <- data.frame(threshold = seq(0, 1 + step, step),
                         fpr = NA,
                         tpr = NA)
-nPos = sum(pr$actual)
-nNeg = nrow(pr) - nPos
+nPos = sum(ps$actual)   # Total actual positive for calculating tpr
+nNeg = nrow(ps) - nPos  # Total actual negative for calculating fpr
 
 for (i in seq_along(rocPoints$threshold)) {
-  thr <-  1 + step - step * (i - 1)
-  fp <- filter(pr, actual == 0, prediction >= thr) %>% count(.)
-  tp <- filter(pr, actual == 1, prediction >= thr) %>% count(.)
+  threshold <-  1 + step - step * (i - 1) # start at 1 + step, work down
+  tp <- nrow(ps[ps$actual == 1 & ps$prediction >= threshold, ])
+  fp <- nrow(ps[ps$actual == 0 & ps$prediction >= threshold, ])
   rocPoints[i, "fpr"] <- fp / nNeg
   rocPoints[i, "tpr"] <- tp / nPos
 }
@@ -180,14 +189,17 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
 
 The reason I don't like this is not that it's usually less efficient, or even that it requires a seemingly arbitrary small magic number *step*, but because I think it reflects a lack of understanding of what the ROC curve is measuring (spoiler alert -- it's discrimination performance).
 
-A superior approach becomes clear once you understand that the predicted *values* are irrelevant; it's only the *ordering* of predictions that matter for the ROC curve. Here's the better algorithm:
+A superior approach becomes clear once you understand that the predicted *values* are irrelevant; it's only the *ordering* of predictions that matter for the ROC curve. Go back to the sliders in the [discrimination threshold section](#discrimination-threshold) if that doesn't make sense and play around some more.
 
-```{r, fig.width = 3, fig.height = 2}
+Here's the better algorithm:
 
-pr <- arrange(pr, desc(prediction))
+```{r, fig.width = 2.5, fig.height = 2.5}
+# First sort our output by predicted value
+ps <- arrange(ps, desc(prediction))
 
-rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
-                        tpr = cumsum(pr$actual) / sum(pr$actual))
+# Then use cumulative sums!
+rocPoints <- data.frame(fpr = c(0, cumsum(!ps$actual) / sum(!ps$actual)),
+                        tpr = c(0, cumsum(ps$actual) / sum(ps$actual)))
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
   geom_step() +
@@ -195,40 +207,25 @@ ggplot(rocPoints, aes(x = fpr, y = tpr)) +
   coord_fixed()
 ```
 
-```{r, fig.width = 3, fig.height = 2}
-
-pr <- arrange(pr, desc(prediction))
-
-rocPoints <- data.frame(fpr = cumsum(!pr$actual) / sum(!pr$actual),
-                        tpr = cumsum(pr$actual) / sum(pr$actual))
-
-ggplot(rocPoints, aes(x = fpr, y = tpr)) +
-  geom_step() +
-  geom_point()
-```
-
-
-## Area under the curve (AUC)
-
-### Discrimination performance
-
-- introduce slider! Watch ROC curve change.
-- emphasise how only *ordering* is important.
-
-### Discrimination vs. calibration
-
-- show extreme examples with all berries bunched up at one end of the scale.
-- consider animation where berries jiggle arround, but don't swap places.
-- Frank Harrel quote
-
-## Optimal decision theory
-
-- Mostly provide links to resources
-
+This approach relies on the predictions first being ordered, but then completely ignores the actual predicted values.
+It also works with cumsum because we coded our positive and negatives as 1s and 0s (it should still work with booleans too).
 
 ## Closing
 
-< visualisation that ties everything together >
+I hope this was an insightful introduction to ROC plots and assessing performance of binary classification!
+The following points were covered in a bit of detail:
+
+* Formulating binary classification problems with *positive* and *negative* samples.
+* Confusion matrices.
+* The ROC space.
+* Discrimination thresholds and the trade-offs associated with its selection.
+* An algorithm for drawing the ROC plot.
+* The idea that the ROC plot is sensitive only to the ordering of predictions, not their values.
+
+I plan to continue discussion and go into interpreting the area under the curve (AUC),
+as well as how we can do better than a threshold or cutoff for making our predicted values dichotomous.
+
+I think this is probably enough content for one post, so stay tuned for part II!
 
 
 <script src = "/js/d3.js"></script>

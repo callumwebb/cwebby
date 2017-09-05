@@ -1,8 +1,10 @@
 function rocPointCurvePlot() {
 
-  var margin = {top:10, right:10, bottom:50, left:60},
+  var margin = {top:10, right:10, bottom:60, left:60},
       width = 200;
       height = 200;
+
+  var showDot = true;
 
   var x = d3.scaleLinear().domain([0, 1])
     .range([0, width]);
@@ -124,35 +126,35 @@ function rocPointCurvePlot() {
       }
 
       function update() {
-        var tp = 0;
-        var fp = 0;
-        var tn = 0;
-        var fn = 0;
+        if (showDot) {
+          var tp = 0;
+          var fp = 0;
+          var tn = 0;
+          var fn = 0;
 
-        for (var i = 0; i < localData.length; i++) {
-          if (localData[i].type == 1) {
-            localData[i].value >= data.threshold ? tp++ : fn++;
-          } else {
-            localData[i].value >= data.threshold ? fp++ : tn++;
+          for (var i = 0; i < localData.length; i++) {
+            if (localData[i].type == 1) {
+              localData[i].value >= data.threshold ? tp++ : fn++;
+            } else {
+              localData[i].value >= data.threshold ? fp++ : tn++;
+            }
           }
+
+          var pointData = [{"fpr" : fp / (tn + fp), "tpr": tp / (fn + tp)}]
+          var points = svg.selectAll(".point").data(pointData);
+
+          points.exit()
+            .remove()
+
+          points.enter().append("circle")
+            .merge(points)
+            .attr("class", "point")
+            .attr("r", 3)
+            .attr("fill", "black")
+            .attr("cx", function(d) { return x(d.fpr); })
+            .attr("cy", function(d) { return y(d.tpr); })
         }
-
-        var pointData = [{"fpr" : fp / (tn + fp), "tpr": tp / (fn + tp)}]
-
-        var points = svg.selectAll(".point").data(pointData);
-
-        points.exit()
-          .remove()
-
-        points.enter().append("circle")
-          .merge(points)
-          .attr("class", "point")
-          .attr("r", 3)
-          .attr("fill", "black")
-          .attr("cx", function(d) { return x(d.fpr); })
-          .attr("cy", function(d) { return y(d.tpr); })
       }
-
       data.register(update)
       update()
     })
@@ -169,6 +171,12 @@ function rocPointCurvePlot() {
     height = value;
     return plot;
   };
+
+  plot.showDot = function(value) {
+    if (!arguments.length) return showDot;
+    showDot = value;
+    return plot;
+  }
 
   return plot;
 }

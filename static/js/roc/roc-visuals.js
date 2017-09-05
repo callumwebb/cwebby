@@ -33,8 +33,8 @@ var exampleOutput = {
            {"type" : 1, "value" : 0.82},
            {"type" : 1, "value" : 0.72},
            {"type" : 0, "value" : 0.66},
-           {"type" : 1, "value" : 0.53},
-           {"type" : 1, "value" : 0.42},
+           {"type" : 0, "value" : 0.53},
+           {"type" : 0, "value" : 0.42},
            {"type" : 0, "value" : 0.30},
            {"type" : 1, "value" : 0.25},
            {"type" : 0, "value" : 0.21},
@@ -52,8 +52,13 @@ var exampleOutput = {
   }
 }
 
-var berryPlot = berryClusterPlot(); // Interactive berry plot
+// Example ROC plot at top of page
+var exampleROCPlot = rocPointCurvePlot().showDot(false);
+d3.select("figure.rocExample")
+  .datum(exampleOutput)
+  .call(exampleROCPlot);
 
+var berryPlot = berryClusterPlot(); // Interactive berry plot
 
 // Place our iteractive plot wherever we have berryClasses figures
 d3.selectAll("figure.berryClasses")
@@ -93,6 +98,7 @@ d3.selectAll("figure.discrimPlot")
   .datum(exampleOutput)
   .call(discrimPlot)
 
+// the ROC plot controlled by discrimPlot
 var rocPointCurvePlot = rocPointCurvePlot();
 function updateRocPointCurvePlot() {
   d3.select("figure.rocPointCurvePlot")
