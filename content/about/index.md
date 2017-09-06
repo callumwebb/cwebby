@@ -5,9 +5,9 @@ title = "About me"
 
 I'm a mechanical engineer and computer scientist by training, and have been fortunate to experience a range of work in both areas as well as their intersection. Some things I've been a part of include:
 
-- [autonomous haul trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z) in mining
+- [WearHawk](http://wearhawk.com), a startup developing innovative conveyor monitoring technologies
 - an augmented reality app for mine planning
-- predictive modelling of conveyor belt wear rate
+- [autonomous haul trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z) in mining
 - early development of a mountain bike [suspension tuning system](https://www.quarq.com/)
 - [hipflask](http://hello.hipflaskapp.com/), a socially networked gig guide
 - maintenance of heavy haul railways
