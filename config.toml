@@ -1,4 +1,4 @@
-baseurl = "callumwebby.com/"
+baseurl = "https://callumwebby.com/"
 title = "Callum Webb"
 theme = "hugo-creative-portfolio-theme"
 languageCode = "en-au"
