@@ -15,7 +15,7 @@ I'm a mechanical engineer and computer scientist by training, and have been fort
 
 In the past year or so I've developed a keen interest for data science, statistics, and machine learning. Outside of work I enjoy photography, working out, and playing music.
 
-![This is me](/img/me.jpg)
+![This is me](/img/me.JPG)
 
 ### Education
 

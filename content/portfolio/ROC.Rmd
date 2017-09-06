@@ -1,5 +1,5 @@
 ---
-image: "img/portfolio/roc-1.png"
+image: "img/portfolio/roc-1.svg"
 showonlyimage: false
 date: "2016-11-05T19:44:32+05:30"
 title: "ROC Curves Part 1"
