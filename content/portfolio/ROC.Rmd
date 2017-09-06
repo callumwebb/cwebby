@@ -24,7 +24,10 @@ After developing a classification algorithm that the machine will use to sort th
 
 <figure class="rocExample" style = "max-width:270px;width:100%"></figure>
 
-There's a lot of information behind this plot, and it's important to understand what the ROC curve can and can't tell us. In this post we'll focus on how the curve is drawn and what it means, a later post will go into more about its limitations.
+If you've come across ROC plots in the wild already, this one will probably look quite blocky and basic by comparison.
+I've kept the amount of data behind it small so that we can more easily understand everything.
+
+Despite this, there's still a lot of information behind the plot, and it's important to understand what the ROC curve can and can't tell us. In this post we'll focus on how the curve is drawn and what it means, a later post will go into more about its limitations.
 
 ## Confusion matrix
 
