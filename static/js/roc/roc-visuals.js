@@ -15,12 +15,30 @@ var berryModel =  {
            {"type" : 0, "label" : 0},
            {"type" : 0, "label" : 1}],
   views: [],
+  dragStartFuns: [],
+  dragEndFuns: [],
   register : function(callback) {
-    this.views.push(callback)
+    this.views.push(callback);
+  },
+  registerDragStart : function(callback) {
+    this.dragStartFuns.push(callback);
+  },
+  registerDragEnd : function(callback) {
+    this.dragEndFuns.push(callback);
   },
   updateViews : function() {
     for (i = 0; i < this.views.length; i++) {
       this.views[i]();
+    }
+  },
+  dragStart : function() {
+    for (i = 0; i < this.dragStartFuns.length; i++) {
+      this.dragStartFuns[i]();
+    }
+  },
+  dragEnd : function() {
+    for (i = 0; i < this.dragEndFuns.length; i++) {
+      this.dragEndFuns[i]();
     }
   }
 }

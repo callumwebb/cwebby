@@ -1,4 +1,8 @@
 
+text {
+  fill: #444444;
+}
+
 circle.raspberry {
   fill: #d20000;
   stroke: #500000;
@@ -95,4 +99,15 @@ line.span {
   stroke: #000;
   stroke-opacity: 0.5;
   stroke-width: 1.25px;
+}
+
+li.math{
+  margin: 4px 0;
+}
+
+.rocL {
+  stroke: #333333;
+  stroke-width: 1.5;
+  fill: none;
+  shape-rendering: crispEdges
 }

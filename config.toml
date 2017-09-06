@@ -8,6 +8,7 @@ disqusShortname = "disqus_KdJ5dfUsWU"
 googleAnalytics = ""
 
 [params]
+  ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
   style = "green2"

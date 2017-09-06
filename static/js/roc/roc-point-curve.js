@@ -117,12 +117,8 @@ function rocPointCurvePlot() {
         var rocPath = svg.selectAll(".rocL")
             .data([rocData]);
         rocPath.enter().append("path")
-           .style("shape-rendering", "crispEdges")
            .attr("d", rocLine)
            .attr("class", "rocL")
-           .attr("stroke", "black")
-           .attr("stroke-width", 2)
-           .attr("fill", "none");
       }
 
       function update() {

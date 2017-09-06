@@ -57,11 +57,13 @@ Here's an example; it's interactive, so click on the berries underneath the matr
 
 There are some standard terms that describe different ratios of values from the confusion matrix, for example:
 
-- True positive rate, or *sensitivity* = $\frac{tp}{p}$ = <span id = "sensitivity"></span>
-- True negative rate, or *specificity*  = $\frac{tn}{n}$ = <span id = "specificity"></span>
-- Positive predicted value, or *precision*  = $\frac{tp}{tp + fp}$ = <span id = "precision"></span>
+- True positive rate, or *sensitivity*:&nbsp;&nbsp;tpr = $\frac{tp}{p}$ = <span id = "sensitivity"></span>
+<li class = "math">True negative rate, or *specificity*:&nbsp;&nbsp;tnr = $\frac{tn}{n}$ = <span id = "specificity"></span></li>
+<li class = "math">False positive rate:&nbsp;&nbsp;fpr = $\frac{fp}{n}$ = <span id = "fpr"></span></li>
+<li class = "math">False negative rate:&nbsp;&nbsp;fnr = $\frac{fn}{p}$ = <span id = "fnr"></span></li>
+<li class = "math">Positive predicted value, or *precision*:&nbsp;&nbsp;ppv = $\frac{tp}{tp + fp}$ = <span id = "precision"></span></li>
 
-…and a [whole bunch of others](https://en.wikipedia.org/wiki/Confusion_matrix)
+…and a [whole bunch of others](https://en.wikipedia.org/wiki/Confusion_matrix), which are all just different combinations of these four matrix entries.
 
 
 ### Points in the ROC space
@@ -134,6 +136,7 @@ To demonstrate, here's the underlying data behind the berries arranged on the sl
 ```{r, echo = FALSE, message = FALSE}
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
+suppressMessages(library(cwebby))
 ```
 
 ```{r}
@@ -184,7 +187,11 @@ for (i in seq_along(rocPoints$threshold)) {
 
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
   geom_step() +
-  geom_point()
+  geom_point() +
+  scale_x_continuous(name = "false positive rate") +
+  scale_y_continuous(name = "true positive rate") +
+  coord_fixed() +
+  theme_cwebby(vertical_y_title = TRUE)
 ```
 
 The reason I don't like this is not that it's usually less efficient, or even that it requires a seemingly arbitrary small magic number *step*, but because I think it reflects a lack of understanding of what the ROC curve is measuring (spoiler alert -- it's discrimination performance).
@@ -204,7 +211,10 @@ rocPoints <- data.frame(fpr = c(0, cumsum(!ps$actual) / sum(!ps$actual)),
 ggplot(rocPoints, aes(x = fpr, y = tpr)) +
   geom_step() +
   geom_point() +
-  coord_fixed()
+  scale_x_continuous(name = "false positive rate") +
+  scale_y_continuous(name = "true positive rate") +
+  coord_fixed() +
+  theme_cwebby(vertical_y_title = TRUE)
 ```
 
 This approach relies on the predictions first being ordered, but then completely ignores the actual predicted values.
