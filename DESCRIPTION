@@ -3,10 +3,11 @@ Type: Package
 Title: Callum Webb Website Package
 Version: 0.1.0
 Author: Callum Webb
-Maintainer: Callum Webb 
-Description: R functions common across personal website
-License: What license is it under?
+Maintainer: Callum Webb <cwebby235@gmail.com>
+Description: R functions common across personal website. 
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports: blogdown,
     ggplot2
+RoxygenNote: 6.0.1

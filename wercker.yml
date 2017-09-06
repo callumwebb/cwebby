@@ -3,7 +3,9 @@ build:
   steps:
    - jimhester/r-dependencies:
        github_packages: rstudio/blogdown
-   - jimhester/r-check
+  - script:
+       name: install-cwebby
+       code: if ! Rscript -e "devtools::install()"; then fail "Install of cwebby package failed"; fi
    - script:
        name: blogdown-build
        code: |

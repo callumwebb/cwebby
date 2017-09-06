@@ -1,4 +1,14 @@
 
+#' Custom website plot theme
+#'
+#' Uses the same gray in the sidebar for panel background, and a slightly darker gray than the page body for text.
+#'
+#' @param base_size base text size
+#' @param base_family base text family
+#' @param vertical_y_title boolean - do you want the y axis title to be rotated vertically?
+#'
+#' @return A modified theme object
+#' @export
 theme_cwebby <- function(base_size = 12, base_family = "", vertical_y_title = FALSE) {
   half_line <- base_size / 2
   theme_grey() %+replace%
