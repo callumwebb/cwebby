@@ -13,7 +13,7 @@ I'm a mechanical engineer and computer scientist by training, and have been fort
 - maintenance of heavy haul railways
 - pilot program and first two years of [CoderDojo WA](http://coderdojowa.org.au/)
 
-In the past year or so I've developed a keen interest for data science and statistics. Outside of work I enjoy photography, working out, and playing music.
+In the past year or so I've developed a keen interest for data science, statistics, and machine learning. Outside of work I enjoy photography, working out, and playing music.
 
 ![This is me](/img/me.jpg)
 
