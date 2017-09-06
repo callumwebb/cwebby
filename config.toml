@@ -12,7 +12,7 @@ googleAnalytics = "UA-102973803-2"
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
   style = "green2"
-  description = "Describe your website"
+  description = "Data science, engineering, knowledge sharing."
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
     "Data science, engineering, knowledge sharing.",
