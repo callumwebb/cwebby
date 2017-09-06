@@ -3,12 +3,13 @@ build:
   steps:
    - jimhester/r-dependencies:
        github_packages: rstudio/blogdown
+   - jimhester/r-check
    - script:
        name: blogdown-build
        code: |
          Rscript -e 'blogdown::install_hugo(version = "0.18.1")'
          Rscript -e 'blogdown::build_site()'
-      
+
 deploy:
   steps:
     - s3sync:
