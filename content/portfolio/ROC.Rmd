@@ -18,7 +18,7 @@ Imagine we've built a machine that bakes two kinds of muffins, blueberry and ras
 
 Suppose that we buy our berries in bulk and that they come mixed together. Because we're lazy (and hungry), we want the machine to separate the raspberries from the blueberries for us. This is an example of a [classification problem](https://en.wikipedia.org/wiki/Statistical_classification).
 
-<img src="/img/roc/muffin-machine.png" style = "max-width:300px;width:100%;"/>
+<img src="/img/roc/muffin-machine.svg" style = "max-width:300px;width:100%;"/>
 
 After developing a classification algorithm that the machine will use to sort the mixed berries, we'd like to estimate how well it's going to perform. An ROC curve is one tool that can help us do this. Here's an example curve which we'll unpack below.
 
