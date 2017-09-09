@@ -12,10 +12,18 @@ build:
          Rscript -e 'blogdown::install_hugo(version = "0.18.1")'
          Rscript -e 'blogdown::build_site()'
 
-deploy:
+deploy-production:
   steps:
     - s3sync:
         key-id: $KEY
         key-secret: $SECRET
-        bucket-url: $BUCKET
+        bucket-url: $BUCKET_PRODUCTION
+        source-dir: $SOURCE
+
+deploy-test:
+  steps:
+    - s3sync:
+        key-id: $KEY
+        key-secret: $SECRET
+        bucket-url: $BUCKET_TEST
         source-dir: $SOURCE
