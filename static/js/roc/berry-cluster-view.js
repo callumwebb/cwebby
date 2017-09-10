@@ -67,19 +67,25 @@ function berryClusterPlot() {
       // simulation interaction functions
       function dragstarted(d) {
         if (!d3.event.active) data.dragStart()
-        d3.event.subject.fx = d3.event.subject.x;
-        d3.event.subject.fy = d3.event.subject.y;
+        d.fx = d3.event.x;
+        d.fy = d.y;
+        // d3.event.subject.fx = d3.event.subject.x;
+        // d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
         data.updateViews();
         update();
       }
       function dragged(d) {
-        d3.event.subject.fx = d3.event.x;
-        d3.event.subject.fy = d3.event.y;
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+        // d3.event.subject.fx = d3.event.x;
+        // d3.event.subject.fy = d3.event.y;
       }
       function dragended(d) {
-        d3.event.subject.fx = null;
-        d3.event.subject.fy = null;
+        d.fx = null;
+        d.fy = null;
+        // d3.event.subject.fx = null;
+        // d3.event.subject.fy = null;
         if (!d3.event.active) data.dragEnd();
       }
       function dragsubject() {
