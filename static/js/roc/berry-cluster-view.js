@@ -66,26 +66,21 @@ function berryClusterPlot() {
 
       // simulation interaction functions
       function dragstarted(d) {
-        data.dragStart()
+        if (!d3.event.active) {
+          data.dragStart()
+        } 
         d.fx = d3.event.x;
         d.fy = d.y;
-        // d3.event.subject.fx = d3.event.subject.x;
-        // d3.event.subject.fy = d3.event.subject.y;
         d.label = d.label == 1 ? 0 : 1;
         data.updateViews();
-        update();
       }
       function dragged(d) {
         d.fx = d3.event.x;
         d.fy = d3.event.y;
-        // d3.event.subject.fx = d3.event.x;
-        // d3.event.subject.fy = d3.event.y;
       }
       function dragended(d) {
         d.fx = null;
         d.fy = null;
-        // d3.event.subject.fx = null;
-        // d3.event.subject.fy = null;
         if (!d3.event.active) data.dragEnd();
       }
       function dragsubject() {
@@ -94,28 +89,28 @@ function berryClusterPlot() {
 
       // simulation tick function
       function ticked() {
-        node.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"});
+        svg.select("g.nodes").selectAll(".node").attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"});
       }
-
-      var node = svg.select("g.nodes").selectAll(".node").data(localData);
 
       // apply general update pattern to nodes
       function update() {
-        node = node.data(localData);
+        var node = svg.select("g.nodes").selectAll(".node").data(localData);
 
         node.exit().remove();
-        node = node.enter().append("g")
+        
+        node.selectAll("circle.nodeLabel").attr("class", function(d) {return d.label == 1 ? "nodeLabel pos" : "nodeLabel neg"})
+
+        var nodeEnter = node.enter().append("g")
           .attr("class", "node")
           .call(d3.drag()
             .subject(dragsubject)
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended))
-          .merge(node);
 
-        node.selectAll("circle").remove();
-        node.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "pos" : "neg"});
-        node.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
+        nodeEnter.append("circle").attr("r",  berrySize).attr("class", function(d) {return d.label == 1 ? "nodeLabel pos" : "nodeLabel neg"})
+        nodeEnter.append("circle").attr("r",  berrySize - 7).attr("class", function(d) {return d.type == 1 ? "raspberry" : "blueberry"});
+
         simulation.nodes(localData);
         simulation.restart();
       }

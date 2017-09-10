@@ -18,21 +18,18 @@ circle.unlabelled {
   stroke: #666666;
   stroke-width: 3px;
 }
-circle.pos {
+circle.nodeLabel {
   fill: white;
   fill-opacity: 0;
-  stroke: #d20000;
   stroke-opacity: 0.75;
   stroke-width: 5px;
   stroke-dasharray: 10;
 }
+circle.pos {
+  stroke: #d20000;
+}
 circle.neg {
-  fill: white;
-  fill-opacity: 0;
   stroke: #0059de;
-  stroke-opacity: 0.75;
-  stroke-width: 5px;
-  stroke-dasharray: 10;
 }
 
 .line {
