@@ -180,7 +180,7 @@ berryStatic.append("circle")
   .attr("class", "raspberry")
 berryStatic.append("circle")
   .attr("transform", "translate(" + width / 4 + "," + height / 4 + ")")
-  .attr("r",  berrySize).attr("class", "pos");
+  .attr("r",  berrySize).attr("class", "nodeLabel pos");
 // top right
 berryStatic.append("circle")
   .attr("transform", "translate(" + 3 * width / 4 + "," + height / 4 + ")")
@@ -188,7 +188,7 @@ berryStatic.append("circle")
   .attr("class", "raspberry")
 berryStatic.append("circle")
   .attr("transform", "translate(" + 3 * width / 4 + "," + height / 4 + ")")
-  .attr("r",  berrySize).attr("class", "neg");
+  .attr("r",  berrySize).attr("class", "nodeLabel neg");
 // bottom left
 berryStatic.append("circle")
   .attr("transform", "translate(" + width / 4 + "," + 3 * height / 4 + ")")
@@ -196,7 +196,7 @@ berryStatic.append("circle")
   .attr("class", "blueberry")
 berryStatic.append("circle")
   .attr("transform", "translate(" + width / 4 + "," + 3 * height / 4 + ")")
-  .attr("r",  berrySize).attr("class", "pos");
+  .attr("r",  berrySize).attr("class", "nodeLabel pos");
 // bottom right
 berryStatic.append("circle")
   .attr("transform", "translate(" + 3 * width / 4 + "," + 3 * height / 4 + ")")
@@ -204,7 +204,7 @@ berryStatic.append("circle")
   .attr("class", "blueberry")
 berryStatic.append("circle")
   .attr("transform", "translate(" + 3 * width / 4 + "," + 3 * height / 4 + ")")
-  .attr("r",  berrySize).attr("class", "neg");
+  .attr("r",  berrySize).attr("class", "nodeLabel neg");
 
 
 // Static continuous berry figure 1 of 2
