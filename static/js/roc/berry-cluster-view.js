@@ -66,7 +66,7 @@ function berryClusterPlot() {
 
       // simulation interaction functions
       function dragstarted(d) {
-        if (!d3.event.active) data.dragStart()
+        data.dragStart()
         d.fx = d3.event.x;
         d.fy = d.y;
         // d3.event.subject.fx = d3.event.subject.x;
