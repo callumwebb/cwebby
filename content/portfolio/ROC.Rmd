@@ -71,7 +71,7 @@ There are some standard terms that describe different ratios of values from the 
 
 ### Points in the ROC space
 
-Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is simply the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise two aspects of the confusion matrix.
+Any set of predictions where the actual class is known can be shown on an ROC plot as a point -- the x axis is the false positive rate, and the y axis is the true positive rate. This is a nice visual way to summarise two aspects of the confusion matrix.
 
 Below we're showing the current state of the labels as a point in the ROC space:
 
@@ -88,7 +88,7 @@ Some key ideas to think about:
 And equally insightful, but a bit trickier:
 
 - A set of predictions that lies anywhere on the diagonal line is doing no better at separating berries than random guessing. (This is why you will often see it drawn - it's a useful reference).
-- Any point that lies below the diagonal line is doing worse than guessing, but can produce useful results by simply reversing the predicted labels; this causes the point to reflect about the diagonal line.
+- Any point that lies below the diagonal line is doing worse than guessing, but can produce useful results by reversing the predicted labels; this causes the point to reflect about the diagonal line.
 - The point can only occupy fixed positions a grid, because when we have a finite number of berries, the true and false positive rates are always a fraction of integers with a fixed denominator.
 
 
