@@ -27,7 +27,6 @@ deploy-test:
       code: |
         Rscript -e 'blogdown::install_hugo(version = "0.18.1")'
         Rscript -e 'blogdown::build_site()'
-  steps:
     - s3sync:
         key-id: $KEY
         key-secret: $SECRET
