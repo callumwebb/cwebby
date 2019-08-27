@@ -17,7 +17,7 @@ deploy-production:
     - script:
       name: blogdown-build
       code: |
-        Rscript -e 'blogdown::install_hugo(version = "0.18.1")'
+        Rscript -e 'blogdown::install_hugo(version = "0.57.2")'
         Rscript -e 'blogdown::build_site()'
     - s3sync:
         key-id: $KEY
@@ -35,7 +35,7 @@ deploy-test:
     - script:
       name: blogdown-build
       code: |
-        Rscript -e 'blogdown::install_hugo(version = "0.18.1")'
+        Rscript -e 'blogdown::install_hugo(version = "0.57.2")'
         Rscript -e 'blogdown::build_site()'
     - s3sync:
         key-id: $KEY

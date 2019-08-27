@@ -3,7 +3,7 @@ date = "2016-11-05T21:05:33+05:30"
 title = "About me"
 +++
 
-I'm a mechanical engineer and computer scientist by training, and have been fortunate to experience a range of work in both areas as well as their intersection. Some things I've been a part of include:
+I'm a mechanical engineer and computer scientist by training, and have been fortunate to experience a diverse range of work. Some things I've been a part of include:
 
 - [WearHawk](http://wearhawk.com), a startup developing innovative conveyor monitoring technologies
 - an augmented reality app for mine planning
@@ -13,17 +13,15 @@ I'm a mechanical engineer and computer scientist by training, and have been fort
 - maintenance of heavy haul railways
 - pilot program and first two years of [CoderDojo WA](http://coderdojowa.org.au/)
 
-In the past year or so I've developed a keen interest for data science, statistics, and machine learning. Outside of work I enjoy photography, working out, and playing music.
+I'm keenly interested in data science, statistics, and machine learning. 
+Outside of work I enjoy photography, working out, and relaxing with music and a tasty beverage.
 
-![This is me](/img/me.JPG)
+<img src="/img/me2.JPG" alt="This is me" width="400"/>
 
 ### Education
 
-Growing up, I loved to tinker with computers, electronics, and mechanical systems. I couldn't decide which was most fun, so I settled on doing a double degree in Computer Science and Mechanical Engineering.
+I completed a double degree in Computer Science and Mechanical Engineering at the University of Western Australia in 2013, majoring in computation and graduating with first class honours.
 
-I completed my studies at the University of Western Australia in 2013, majoring in computation and graduating with first class honours.
-
-I'm happy to report that my appreciation of Lego is still as strong as ever!
 
 ### This site
 

@@ -6,8 +6,9 @@ disqusShortname = "callumwebby-com"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = "UA-102973803-2"
 
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
 [params]
-  ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
   style = "green2"
@@ -15,7 +16,7 @@ googleAnalytics = "UA-102973803-2"
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
     "Data science, engineering, knowledge sharing.",
-    "Currently based in Perth, Australia."
+    "Currently based in Sydney, Australia."
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
