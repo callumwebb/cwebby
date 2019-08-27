@@ -1,16 +1,12 @@
 box: rocker/tidyverse
 build:
   steps:
-    - jimhester/r-dependencies:
-        github_packages: rstudio/blogdown
     - script:
         name: install-cwebby
         code: if ! Rscript -e "devtools::install()"; then fail "Install of cwebby package failed"; fi
 
 deploy-production:
   steps:
-    - jimhester/r-dependencies:
-        github_packages: rstudio/blogdown
     - script:
         name: install-cwebby
         code: if ! Rscript -e "devtools::install()"; then fail "Install of cwebby package failed"; fi
@@ -27,8 +23,6 @@ deploy-production:
 
 deploy-test:
   steps:
-    - jimhester/r-dependencies:
-        github_packages: rstudio/blogdown
     - script:
         name: install-cwebby
         code: if ! Rscript -e "devtools::install()"; then fail "Install of cwebby package failed"; fi
