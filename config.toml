@@ -16,7 +16,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   copyright = "&copy;2016 Callum Webb"
   sidebarAbout = [
     "Data science, engineering, knowledge sharing.",
-    "Currently based in Sydney, Australia."
+    "Currently based in London, UK."
   ]
   # Contact page
      # Since this template is static, the contact form uses www.formspree.io as a
