@@ -142,6 +142,7 @@ suppressMessages(library(ggplot2))
 suppressMessages(library(cwebby))
 ```
 
+
 ```{r}
 # The tibble package helps us write dataframes in a human-friendly way.
 ps <- tibble::tribble(
@@ -160,6 +161,7 @@ ps <- tibble::tribble(
     0.01,        0
   )
 ```
+
 
 The algorithm I don't like as much usually involves this type of strategy:
 
