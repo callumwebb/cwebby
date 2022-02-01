@@ -32,7 +32,9 @@ jobs:
           R -e 'devtools::install()'
       - name: Build site
         run: |
-          R -e 'blogdown::build_site(local = TRUE)'
+          blogdown::build_site(local = TRUE)
+          print(list.files('./public', all.files = TRUE, recursive = TRUE))
+        shell: Rscript {0}
       - uses: awact/s3-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
