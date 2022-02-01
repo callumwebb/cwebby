@@ -6,7 +6,7 @@ title = "About me"
 I'm a data scientist and engineer, and have been fortunate to experience a diverse range of work. Some things I've been a part of include:
 
 - [BibliU](https://bibliu.com/), a learning enablement platform
-- [APRA], one of Australia's financial regulators
+- [APRA](https://www.apra.gov.au/), one of Australia's financial regulators
 - optimising copper mining operation and extraction processes
 - an augmented reality app for mine planning
 - [autonomous mining haul trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z)
