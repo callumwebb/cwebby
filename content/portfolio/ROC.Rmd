@@ -2,7 +2,7 @@
 image: "img/portfolio/roc-1.svg"
 showonlyimage: false
 date: "2016-11-05T19:44:32+05:30"
-title: "ROC Curves Part 1"
+title: "ROC Curves"
 description: "A delicious introduction to ROC curves with muffins."
 type: "portfolio"
 draft: false
@@ -236,12 +236,6 @@ The following points were covered in a bit of detail:
 * Discrimination thresholds and the trade-offs associated with its selection.
 * An algorithm for drawing the ROC plot.
 * The idea that the ROC plot is sensitive only to the ordering of predictions, not their values.
-
-I plan to continue discussion and go into interpreting the area under the curve (AUC),
-as well as how we can do better than a threshold or cutoff for making our predicted values dichotomous.
-
-I think this is probably enough content for one post, so stay tuned for part II!
-
 
 <script src = "/js/d3.js"></script>
 <script src = "/js/roc/confusion-matrix.js"></script>
