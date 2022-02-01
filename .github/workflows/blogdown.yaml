@@ -26,6 +26,9 @@ jobs:
       - name: Install hugo
         run: |
           R -e 'blogdown::install_hugo(version = "0.92.1")'
+      - name: Install devtools
+        run: |
+          R -e 'install.packages("devtools")'
       - name: Install cwebby
         run: |
           R -e 'devtools::install()'
