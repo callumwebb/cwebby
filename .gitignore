@@ -1,6 +1,4 @@
-content/portfolio/*.html
 static/portfolio/*
-content/portfolio/*_files
 content/portfolio/*.markdown
 index.html
 /public
@@ -8,3 +6,4 @@ index.html
 .DS_Store
 Thumbs.db
 .hugo_build.lock
+content/**/*index_files

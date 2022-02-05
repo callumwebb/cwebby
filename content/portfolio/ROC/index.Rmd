@@ -237,11 +237,11 @@ The following points were covered in a bit of detail:
 * An algorithm for drawing the ROC plot.
 * The idea that the ROC plot is sensitive only to the ordering of predictions, not their values.
 
-<script src = "/js/d3.js"></script>
-<script src = "/js/roc/confusion-matrix.js"></script>
-<script src = "/js/roc/berry-cluster-view.js"></script>
-<script src = "/js/roc/roc-point.js"></script>
-<script src = "/js/roc/roc-point-curve.js"></script>
-<script src = "/js/roc/continuous-output-plot.js"></script>
-<script src = "/js/roc/discrim-plot.js"></script>
-<script src = "/js/roc/roc-visuals.js"></script>
+<script src = "./js/d3.js"></script>
+<script src = "./js/confusion-matrix.js"></script>
+<script src = "./js/berry-cluster-view.js"></script>
+<script src = "./js/roc-point.js"></script>
+<script src = "./js/roc-point-curve.js"></script>
+<script src = "./js/continuous-output-plot.js"></script>
+<script src = "./js/discrim-plot.js"></script>
+<script src = "./js/roc-visuals.js"></script>
