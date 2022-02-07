@@ -7,6 +7,7 @@ I'm a data scientist and engineer, currently building data products at
 [BibliU](https://bibliu.com/). In the past I've worked on: 
 
 - [financial regulation](https://www.apra.gov.au/)
+- [innovative conveyor belt monitoring technologies](http://wearhawk.com/)
 - copper extraction
 - [autonomous mining trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z)
 - heavy haul railway maintenance
