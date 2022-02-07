@@ -1,21 +1,19 @@
 +++
 date = "2016-11-05T21:05:33+05:30"
-title = "About me"
+title = "Hello!"
 +++
 
-I'm a data scientist and engineer, and have been fortunate to experience a diverse range of work. Some things I've been a part of include:
+I'm a data scientist and engineer, currently building data products at 
+[BibliU](https://bibliu.com/). In the past I've worked on: 
 
-- [BibliU](https://bibliu.com/), a learning enablement platform
-- [APRA](https://www.apra.gov.au/), one of Australia's financial regulators
-- optimising copper mining operation and extraction processes
-- an augmented reality app for mine planning
-- [autonomous mining haul trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z)
+- [financial regulation](https://www.apra.gov.au/)
+- copper extraction
+- [autonomous mining trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z)
 - heavy haul railway maintenance
-- pilot program and first two years of [CoderDojo WA](http://coderdojowa.org.au/)
-- [hipflask](https://www.hipflaskapp.com/)
-- early development of a mountain bike [suspension tuning system](https://www.quarq.com/)
+- [mentoring kids who want to learn how to code](http://coderdojowa.org.au/)
 
-This site was put together to learn more about topics I find interesting and practice publishing content from R and D3 with automated build processes. Hopefully you find it interesting and useful too!
+And other software development in Python, Objective C, and C++. Outside of work I enjoy photography, keeping fit, and eating chocolate.
 
-Some tools used include [blogdown](https://github.com/rstudio/blogdown) for R, with a slightly modified theme from [Bootstrapious](https://github.com/kishaningithub/hugo-creative-portfolio-theme).
-[Github](https://github.com/callumwebb/cwebby) repository.
+![it's me](/img/me.jpg)
+
+[This site](https://github.com/callumwebb/cwebby) was put together to learn more about topics I find interesting and practice publishing content from R. Hopefully you find it interesting and useful too!

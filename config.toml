@@ -26,13 +26,10 @@ home = true
 name = "About"
 url = "about/"
 
-[[params.navlinks]]
-name = "Get in touch"
-url = "contact/"
-
 [params.social]
 linkedin      = "https://linkedin.com/in/callumwebb"
 github        = "https://github.com/callumwebb"
+instagram     = "https://www.instagram.com/callummwebb"
 
 
 
