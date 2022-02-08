@@ -1,7 +1,6 @@
 baseurl = "https://callumwebby.com/"
 title = "Callum Webb"
 theme = "hugo-creative-portfolio-theme"
-disqusShortname = "callumwebby-com"
 languageCode = "en-au"
 
 [params]
