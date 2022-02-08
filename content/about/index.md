@@ -11,10 +11,10 @@ I'm a data scientist and engineer, currently building data products at
 - copper extraction
 - [autonomous mining trucks](https://thewest.com.au/news/wa/nobody-at-the-wheel-at-bhps-jimblebar-iron-ore-mine-site-ng-b88529442z)
 - heavy haul railway maintenance
-- [mentoring kids who want to learn how to code](http://coderdojowa.org.au/)
+- [mentoring young people who want to learn how to code](http://coderdojowa.org.au/)
 
 And other software development in Python, Objective C, and C++. Outside of work I enjoy photography, keeping fit, and eating chocolate.
 
-![it's me](/img/me.jpg)
+![it's me](/img/me.JPG)
 
 [This site](https://github.com/callumwebb/cwebby) was put together to learn more about topics I find interesting and practice publishing content from R. Hopefully you find it interesting and useful too!
